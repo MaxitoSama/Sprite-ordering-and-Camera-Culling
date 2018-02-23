@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio>
+		<music_volume value="64" />
+		<fx_volume value="128" />
+	</audio>
+	<map />
+	<pathfinding />
+	<gui />
+	<menu />
+	<scene />
+	<colliders />
+	<entity>
+		<player x="60" y="828.333374" Map="2" score="0" lives="3" coins="1" />
+		<enemy_zombie>
+			<position x="5394.1665" y="1651.83325" />
+			<position x="19244.166" y="812.999939" />
+			<position x="19355.166" y="812.999939" />
+		</enemy_zombie>
+		<enemy_plane>
+			<position x="116.933212" y="496.133453" />
+		</enemy_plane>
+	</entity>
+	<transition />
+	<fonts />
+	<renderer>
+		<camera x="0" y="-110" />
+	</renderer>
+</game_state>
