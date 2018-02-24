@@ -62,7 +62,7 @@ void Entity::Draw(SDL_Texture* sprites, float direction, float dt)
 		
 	if (animation != nullptr)
 	{		
-		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame(dt)), direction, 1.0f);
+		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame(dt)),0.3f);
 	}
 	
 	if (type == COIN)

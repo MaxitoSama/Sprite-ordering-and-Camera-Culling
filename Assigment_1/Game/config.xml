@@ -30,8 +30,8 @@
 	
   <entity>
     <player>
-      <position pos_x="60" pos_y="215"/>
-      <gravity  value="500"/>
+      <position pos_x="100" pos_y="215"/>
+      <gravity  value="0"/>
       <acceleration value="100"/>
       <accel_counter value="10"/>
       <velocity value="1000"/>

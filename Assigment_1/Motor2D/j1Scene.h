@@ -37,13 +37,6 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	//Change to scene 1
-	void ChangeScene(int x, int y);
-
-	void StartCurrentScene();
-	bool GUIEvent(UIEvents eventType, UIElements* element);
-	void GoToMenu();
-
 public:
 		
 	p2DynArray<iPoint>	path_test;
@@ -61,34 +54,6 @@ public:
 private:
 
 	bool				exit=true;
-	bool				LoadUI = true;
-
-	GuiText*			text = nullptr;
-	j1Timer				timer;
-
-	UIElements*			QuitButton = nullptr;
-	UIElements*			Score = nullptr;
-	UIElements*			Lives = nullptr;
-	UIElements*			Coins = nullptr;
-	UIElements*			button_back = nullptr;
-	UIElements*			pause_window = nullptr;
-	UIElements*			back_menu_button = nullptr;
-	UIElements*			back_menu_text = nullptr;
-	UIElements*			exit_button = nullptr;
-	UIElements*			exit_text = nullptr;
-	UIElements*			exit_pause = nullptr;
-	UIElements*			clockframe = nullptr;
-	UIElements*			Clock = nullptr;
-
-
-	SDL_Rect			button_play;
-	SDL_Rect			display_score;
-	SDL_Rect			live_icon;
-	SDL_Rect			display_coins;
-	SDL_Rect			rect_button_back;
-	SDL_Rect			rect_button_exit;
-	SDL_Rect			rect_clock;
-	SDL_Rect			rect_exit_pause;
 
 	int					map_height;
 	int					map_width;

@@ -56,7 +56,7 @@ public:
 	Collider*		collider_feet = nullptr;
 	Collider*		collider_head = nullptr;
 
-	p2DynArray<iPoint>	Enemypath = NULL;
+	vector<iPoint>		Enemypath;
 
 protected:
 

@@ -5,15 +5,11 @@
 #include "j1Colliders.h"
 #include "j1Entities.h"
 #include "j1Textures.h"
-#include "j1Menu.h"
 #include "j1Scene.h"
 #include "Entity.h"
 
 //Include all enemies
-#include "Enemy_Zombie.h"
-#include "Enemy_Plane.h"
 #include "Player.h"
-#include "Coin.h"
 
 #define SPAWN_MARGIN 2000
 
@@ -50,21 +46,16 @@ bool j1Entities::Start()
 	sprites_player = App->tex->Load("assets/character/character.png");
 	sprites_coin = App->tex->Load("assets/entities/coin.png");
 
-	if (!App->menu->active)
+	if (player == nullptr)
 	{
-		if (player == nullptr)
-		{
-			player = new Player(10, 100, PLAYER);
-			player->Awake(entity_config);
-			player->Start();
-		}
-		else
-		{
-			player->Start();
-		}
-
+		player = new Player(10, 100, PLAYER);
+		player->Awake(entity_config);
+		player->Start();
 	}
-	
+	else
+	{
+		player->Start();
+	}
 
 	return true;
 }
@@ -230,20 +221,12 @@ void j1Entities::SpawnEnemy(const EnemyInfo& info)
 	{
 		switch (info.type)
 		{
-		case ENTITY_TYPES::ZOMBIE:
-			entities[i] = new Enemy_Zombie(info.x, info.y,info.type);
-			entities[i]->Awake(entity_config);
-			break;
-		case ENTITY_TYPES::PLANE:
-			entities[i] = new Enemy_Plane(info.x, info.y,info.type);
-			entities[i]->Awake(entity_config);
-			break;
 		case ENTITY_TYPES::PLAYER:
 			entities[i] = new Player(info.x, info.y, info.type);
 			break;
-		case ENTITY_TYPES::COIN:
+		/*case ENTITY_TYPES::COIN:
 			entities[i] = new Coin(info.x, info.y, info.type);
-			break;
+			break;*/
 		}
 	}
 }

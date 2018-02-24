@@ -71,11 +71,11 @@ void j1PathFinding::Path(int x, int y, p2DynArray<iPoint>& path)
 	path.Flip();
 }
 
-void j1PathFinding::DrawPath(p2DynArray<iPoint>& path)
+void j1PathFinding::DrawPath(vector<iPoint>& path)
 {
 	iPoint point;
 
-	for (uint i = 0; i < path.Count(); ++i)
+	for (uint i = 0; i < path.size(); ++i)
 	{
 		iPoint pos = App->map->MapToWorld(path[i].x, path[i].y);
 		App->render->Blit(PathTile, pos.x, pos.y);

@@ -6,7 +6,6 @@
 #include "UIBackground.h"
 #include "j1Window.h"
 #include "Console.h"
-#include "j1Menu.h"
 
 
 Console::Console(int x, int y, UIElementType type, SDL_Rect* _rect, j1Module* modul, const char* _text) :UIElements(x, y, type, modul)
@@ -95,7 +94,6 @@ void Console::exec_command(const char* command)
 {
 	if (strcmp(command, "exit")==0)
 	{
-		App->menu->exit = false;
 	}
 	if (strcmp(command, "help") == 0)
 	{

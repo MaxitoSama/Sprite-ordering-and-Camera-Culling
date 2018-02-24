@@ -97,17 +97,6 @@ bool j1Colliders::Update(float dt)
 				App->entities->player->dead_by_fall = true;
 				App->entities->Slowmo = false;
 			}
-
-			if (c1->type == COLLIDER_WIN && c2->type == COLLIDER_FEET && c1->CheckCollision(c2->rect) == true)
-			{
-				App->scene->ChangeScene(60,215);
-			}
-			
-			if (c1->type == COLLIDER_WIN2 && c2->type == COLLIDER_FEET && c1->CheckCollision(c2->rect) == true)
-			{
-				App->scene->ChangeScene(60, 215);
-				App->entities->player->score = 0;
-			}
 			
 			for (uint i = 0; i < MAX_ENEMIES; ++i)
 			{

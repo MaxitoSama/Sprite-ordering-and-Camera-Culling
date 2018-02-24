@@ -76,59 +76,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Coin.cpp" />
-    <ClCompile Include="Console.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="Enemy_Plane.cpp" />
-    <ClCompile Include="Enemy_Zombie.cpp" />
     <ClCompile Include="j1Colliders.cpp" />
     <ClCompile Include="j1Entities.cpp" />
-    <ClCompile Include="j1Fonts.cpp" />
-    <ClCompile Include="j1Gui.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
     <ClCompile Include="j1Input.cpp" />
     <ClCompile Include="j1Map.cpp" />
-    <ClCompile Include="j1Menu.cpp" />
     <ClCompile Include="j1Pathfinding.cpp" />
     <ClCompile Include="j1PerfTimer.cpp" />
     <ClCompile Include="j1Scene.cpp" />
     <ClCompile Include="j1Timer.cpp" />
-    <ClCompile Include="j1Transition.cpp" />
     <ClCompile Include="p2Log.cpp" />
     <ClCompile Include="j1Render.cpp" />
     <ClCompile Include="j1Textures.cpp" />
     <ClCompile Include="j1Window.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PugiXml\src\pugixml.cpp" />
-    <ClCompile Include="UIBackground.cpp" />
-    <ClCompile Include="UIButton.cpp" />
-    <ClCompile Include="UIElements.cpp" />
-    <ClCompile Include="UIImage.cpp" />
-    <ClCompile Include="UISlider.cpp" />
-    <ClCompile Include="UIText.cpp" />
-    <ClCompile Include="UITextBox.cpp" />
-    <ClCompile Include="UIWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Brofiler\Brofiler.h" />
-    <ClInclude Include="Coin.h" />
-    <ClInclude Include="Console.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="Enemy_Plane.h" />
-    <ClInclude Include="Enemy_Zombie.h" />
     <ClInclude Include="j1Colliders.h" />
     <ClInclude Include="j1Entities.h" />
-    <ClInclude Include="j1Fonts.h" />
-    <ClInclude Include="j1Gui.h" />
     <ClInclude Include="j1Map.h" />
-    <ClInclude Include="j1Menu.h" />
     <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />
     <ClInclude Include="j1Scene.h" />
     <ClInclude Include="j1Timer.h" />
-    <ClInclude Include="j1Transition.h" />
     <ClInclude Include="p2Animation.h" />
     <ClInclude Include="p2DynArray.h" />
     <ClInclude Include="j1Audio.h" />
@@ -148,14 +124,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="PugiXml\src\pugixml.hpp" />
-    <ClInclude Include="UIBackground.h" />
-    <ClInclude Include="UIButton.h" />
-    <ClInclude Include="UIElements.h" />
-    <ClInclude Include="UIImage.h" />
-    <ClInclude Include="UISlider.h" />
-    <ClInclude Include="UIText.h" />
-    <ClInclude Include="UITextBox.h" />
-    <ClInclude Include="UIWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\config.xml">

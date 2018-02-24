@@ -151,7 +151,7 @@ void j1Map::Draw_Colliders()
 		}
 	}
 
-	App->colliders->AddCollider({ 0,1080,1000000,10 }, COLLIDER_DEATH);
+	//App->colliders->AddCollider({ 0,1080,1000000,10 }, COLLIDER_DEATH);
 }
 
 void j1Map::LoadEntities()

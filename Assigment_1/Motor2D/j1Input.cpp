@@ -4,7 +4,6 @@
 #include "j1Input.h"
 #include "j1Window.h"
 #include "SDL/include/SDL.h"
-#include "j1Menu.h"
 #include "UIElements.h"
 #include "Console.h"
 
@@ -93,7 +92,7 @@ bool j1Input::PreUpdate()
 				windowEvents[WE_QUIT] = true;
 			break;
 
-			case SDL_TEXTINPUT:
+		/*	case SDL_TEXTINPUT:
 				if (App->menu->Console->show)
 				{
 					strcat_s(App->menu->console_text, event.text.text);
@@ -122,7 +121,7 @@ bool j1Input::PreUpdate()
 						}
 					}
 				}
-				break;
+				break;*/
 				
 			case SDL_WINDOWEVENT:
 				switch(event.window.event)

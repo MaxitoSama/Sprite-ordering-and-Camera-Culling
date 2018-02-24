@@ -1,6 +1,9 @@
 #ifndef __j1APP_H__
 #define __j1APP_H__
 
+#include <vector>
+#include <list>
+
 #include "p2List.h"
 #include "p2DynArray.h"
 #include "j1Module.h"
@@ -9,13 +12,14 @@
 #include "j1PerfTimer.h"
 #include "j1Timer.h"
 
+using namespace std;
+
 // Modules
 class j1Window;
 class j1Input;
 class j1Render;
 class j1Textures;
 class j1Audio;
-class j1Menu;
 class j1Scene;
 class j1Transition;
 class j1Colliders;
@@ -93,7 +97,6 @@ public:
 	j1Render*			render = nullptr;
 	j1Textures*			tex = nullptr;
 	j1Audio*			audio = nullptr;
-	j1Menu*				menu = nullptr;
 	j1Scene*			scene = nullptr;
 	j1Transition*		transit = nullptr;
 	j1Colliders*		colliders = nullptr;
@@ -115,7 +118,7 @@ public:
 
 private:
 
-	p2List<j1Module*>	modules;
+	list<j1Module*>		modules;
 	uint32				frames;
 	
 	int					argc;
