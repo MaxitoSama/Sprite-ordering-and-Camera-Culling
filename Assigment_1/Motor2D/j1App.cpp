@@ -60,10 +60,9 @@ j1App::~j1App()
 	// release modules
 	list<j1Module*>::iterator item = modules.end();
 
-	while((*item) != NULL)
+	for(list<j1Module*>::iterator item=modules.begin();item!=modules.end();item++)
 	{
 		RELEASE((*item));
-		item = item--;
 	}
 
 	modules.clear();
@@ -296,6 +295,12 @@ bool j1App::DoUpdate()
 		ret = (*item)->Update(dt);
 	}
 
+	if (ret == true)
+	{
+		LOG("Elementos de cola %d", render->SpriteOrderer.size());
+		render->BlitFromQueue(render->SpriteOrderer);
+	}
+
 	return ret;
 }
 
@@ -326,15 +331,16 @@ bool j1App::CleanUp()
 {
 	PERF_START(ptimer);
 	bool ret = true;
-	list<j1Module*>::iterator item;
-	item = modules.end();
+	list<j1Module*>::reverse_iterator item;
+	item = modules.rbegin();
 
-	while((*item) != NULL && ret == true)
+	for(item;item!=modules.rend();item++)
 	{
-		ret = (*item)->CleanUp();
-		item = item--;
+		if ((*item)->active)
+		{
+			ret = (*item)->CleanUp();
+		}
 	}
-
 
 	PERF_PEEK(ptimer);
 	return ret;

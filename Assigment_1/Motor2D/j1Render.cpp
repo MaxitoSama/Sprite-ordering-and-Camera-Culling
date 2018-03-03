@@ -260,3 +260,72 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 
 	return ret;
 }
+
+//This fucntions create a new element for the Queue with the info of the class ObjectToPrint
+void j1Render::FillQueue(uint Priority,SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale, float speed, double angle, int pivot_x, int pivot_y)
+{
+	ObjectToPrint* auxObject = new ObjectToPrint(Priority,texture,x,y,section,scale,speed,angle,pivot_x,pivot_y);
+	SpriteOrderer.push(auxObject);
+}
+
+//This function prints all the elements of the queue
+bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*>& Queue)
+{
+	bool ret = true;
+
+	while (Queue.empty()==false)
+	{
+		ObjectToPrint* first = Queue.top();
+		uint scale = App->win->GetScale();
+
+		SDL_Rect rect;
+		rect.x = (int)(camera.x * first->speed) + first->x * scale;
+		rect.y = (int)(camera.y * first->speed) + first->y * scale;
+
+		if (first->section != NULL)
+		{
+			rect.w = first->section->w;
+			rect.h = first->section->h;
+		}
+		else
+		{
+			SDL_QueryTexture(first->texture, NULL, NULL, &rect.w, &rect.h);
+		}
+
+		SDL_RendererFlip flag;
+
+		if (first->scale < 0)
+		{
+			flag = SDL_FLIP_HORIZONTAL;
+			rect.w *= -first->scale;
+			rect.h *= -first->scale;
+		}
+		else
+		{
+			flag = SDL_FLIP_NONE;
+			rect.w *= first->scale;
+			rect.h *= first->scale;
+		}
+
+		SDL_Point* p = NULL;
+		SDL_Point pivot;
+
+		if (first->pivot_x != INT_MAX && first->pivot_y != INT_MAX)
+		{
+			pivot.x = first->pivot_x;
+			pivot.y = first->pivot_y;
+			p = &pivot;
+		}
+
+		if (SDL_RenderCopyEx(renderer, first->texture, first->section, &rect, first->angle, p, flag) != 0)
+		{
+			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+			ret = false;
+		}
+
+		Queue.pop();
+	}
+
+	return ret;
+}
+

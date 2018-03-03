@@ -58,6 +58,8 @@ public:
 
 	vector<iPoint>		Enemypath;
 
+	int				order = 0;
+
 protected:
 
 	Animation*		animation = nullptr;

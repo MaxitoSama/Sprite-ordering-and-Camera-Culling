@@ -13,8 +13,23 @@ class ObjectToPrint
 {
 public:
 
-	ObjectToPrint(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale) :
-		texture(texture), x(x), y(y), section(section), scale(scale) {}
+	ObjectToPrint(uint priority,SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale, float speed, double angle, int pivot_x, int pivot_y) :
+		priority(priority),texture(texture), x(x), y(y), section(section), scale(scale), speed(speed),angle(angle),pivot_x(pivot_x), pivot_y(pivot_y) {}
+
+	~ObjectToPrint()
+	{
+		if (texture != nullptr)
+		{
+			delete texture;         
+			texture = nullptr;      
+		}
+
+		if (section != nullptr)
+		{
+			delete section;
+			section = nullptr;
+		}
+	}
 
 	uint GetPriority()const
 	{
@@ -34,7 +49,7 @@ public:
 	const SDL_Rect*		section;
 	float				scale;
 	float				speed;
-	double				angle = 0;
+	double				angle;
 	int					pivot_x;
 	int					pivot_y;
 
@@ -71,10 +86,14 @@ public:
 	// Blit
 	void SetViewPort(const SDL_Rect& rect);
 	void ResetViewPort();
+	void FillQueue(uint Priority,SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float scale = 1.0f, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
+	
 	bool Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float scale = 1.0f, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX) const;
+	bool BlitFromQueue(priority_queue <ObjectToPrint*>& Queue);
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true) const;
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
+
 
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
@@ -87,7 +106,7 @@ public:
 	SDL_Color		background;
 
 	//Priority queue using the new template
-	priority_queue <ObjectToPrint> SpriteOrderer;
+	priority_queue <ObjectToPrint*> SpriteOrderer;
 };
 
 #endif // __j1RENDER_H__
