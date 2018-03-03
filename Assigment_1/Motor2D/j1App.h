@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <list>
+#include <queue>
 
 #include "p2List.h"
 #include "p2DynArray.h"

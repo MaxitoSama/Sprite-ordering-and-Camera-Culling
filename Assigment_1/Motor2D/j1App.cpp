@@ -191,20 +191,13 @@ void j1App::PrepareUpdate()
 {
 	frame_count++;
 	last_sec_frame_count++;
-	
-	if (!GamePaused)
+
+	dt = frame_time.ReadSec();
+	if (dt > 5.0f / (float)framerate_cap && Cap_on)
 	{
-		dt = frame_time.ReadSec();
-		if (dt > 5.0f / (float)framerate_cap && Cap_on)
-		{
-			dt = 5.0f / (float)framerate_cap;
-		}
+		dt = 5.0f / (float)framerate_cap;
 	}
-	else
-	{
-		dt = 0;
-	}
-	
+
 	frame_time.Start();
 	ptimer.Start();
 }
@@ -269,7 +262,7 @@ bool j1App::PreUpdate()
 	item = modules.begin();
 	j1Module* pModule = NULL;
 
-	for(item;item!=modules.end(); item++)
+	for(item;item!=modules.end() && ret==true; item++)
 	{
 		pModule = (*item);
 
@@ -292,7 +285,7 @@ bool j1App::DoUpdate()
 	item = modules.begin();
 	j1Module* pModule = NULL;
 
-	for(item; (*item) != NULL && ret == true; item++)
+	for(item; item!=modules.end() && ret == true; item++)
 	{
 		pModule = (*item);
 
@@ -314,7 +307,7 @@ bool j1App::PostUpdate()
 	item = modules.begin();
 	j1Module* pModule = NULL;
 
-	for(item ; (*item) != NULL && ret == true; item++)
+	for(item ; item !=modules.end() && ret == true; item++)
 	{
 		pModule = (*item);
 

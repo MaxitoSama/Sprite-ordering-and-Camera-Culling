@@ -1,9 +1,45 @@
 #ifndef __j1RENDER_H__
 #define __j1RENDER_H__
 
+#include <queue>
+
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
 #include "j1Module.h"
+
+using namespace std;
+
+class ObjectToPrint
+{
+public:
+
+	ObjectToPrint(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale) :
+		texture(texture), x(x), y(y), section(section), scale(scale) {}
+
+	uint GetPriority()const
+	{
+		return priority;
+	}
+
+	//Function that compares the priority for the queue
+	bool operator<(const ObjectToPrint& Obj_1)
+	{
+		return GetPriority() > Obj_1.GetPriority();
+	}
+
+public:
+	SDL_Texture*		texture;
+	int					x;
+	int					y;
+	const SDL_Rect*		section;
+	float				scale;
+	float				speed;
+	double				angle = 0;
+	int					pivot_x;
+	int					pivot_y;
+
+	uint				priority;
+};
 
 class j1Render : public j1Module
 {
@@ -49,6 +85,9 @@ public:
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
 	SDL_Color		background;
+
+	//Priority queue using the new template
+	priority_queue <ObjectToPrint> SpriteOrderer;
 };
 
 #endif // __j1RENDER_H__
