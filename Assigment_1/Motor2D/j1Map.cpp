@@ -43,7 +43,7 @@ void j1Map::Draw()
 	
 	for (background_indx = 0; background_indx < data.backgrounds.count(); background_indx++)
 	{
-		App->render->Blit(data.backgrounds[background_indx]->Image, -App->render->camera.x, -App->render->camera.y, NULL, 1.0f);
+		App->render->FillQueue(4,data.backgrounds[background_indx]->Image, -App->render->camera.x, -App->render->camera.y, NULL, 1.0f);
 	}
 
 	p2List_item<MapLayer*>* item = data.layers.start;
@@ -64,7 +64,7 @@ void j1Map::Draw()
 					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
-					App->render->Blit(tileset->texture, pos.x, pos.y, &r);
+					App->render->FillQueue(2,tileset->texture, pos.x, pos.y, &r);
 				}
 			}
 		}

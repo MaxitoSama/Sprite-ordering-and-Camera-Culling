@@ -297,7 +297,8 @@ bool j1App::DoUpdate()
 
 	if (ret == true)
 	{
-		LOG("Elementos de cola %d", render->SpriteOrderer.size());
+		//map->Draw();
+		//LOG("Elementos de cola %d", render->SpriteOrderer.size());
 		render->BlitFromQueue(render->SpriteOrderer);
 	}
 

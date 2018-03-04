@@ -269,7 +269,7 @@ void j1Render::FillQueue(uint Priority,SDL_Texture* texture, int x, int y, const
 }
 
 //This function prints all the elements of the queue
-bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*>& Queue)
+bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*, vector<ObjectToPrint*>, OrderCrit>& Queue)const
 {
 	bool ret = true;
 

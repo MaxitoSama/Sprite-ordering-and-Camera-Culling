@@ -2,6 +2,7 @@
 #define __j1RENDER_H__
 
 #include <queue>
+#include <vector>
 
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
@@ -16,30 +17,9 @@ public:
 	ObjectToPrint(uint priority,SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale, float speed, double angle, int pivot_x, int pivot_y) :
 		priority(priority),texture(texture), x(x), y(y), section(section), scale(scale), speed(speed),angle(angle),pivot_x(pivot_x), pivot_y(pivot_y) {}
 
-	~ObjectToPrint()
-	{
-		if (texture != nullptr)
-		{
-			delete texture;         
-			texture = nullptr;      
-		}
-
-		if (section != nullptr)
-		{
-			delete section;
-			section = nullptr;
-		}
-	}
-
 	uint GetPriority()const
 	{
 		return priority;
-	}
-
-	//Function that compares the priority for the queue
-	bool operator<(const ObjectToPrint& Obj_1)
-	{
-		return GetPriority() > Obj_1.GetPriority();
 	}
 
 public:
@@ -54,6 +34,14 @@ public:
 	int					pivot_y;
 
 	uint				priority;
+};
+
+struct OrderCrit
+{
+	bool operator()(const ObjectToPrint* Obj_1, const ObjectToPrint* Obj_2)
+	{
+		return Obj_1->GetPriority() > Obj_2->GetPriority();
+	}
 };
 
 class j1Render : public j1Module
@@ -89,7 +77,7 @@ public:
 	void FillQueue(uint Priority,SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float scale = 1.0f, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
 	
 	bool Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float scale = 1.0f, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX) const;
-	bool BlitFromQueue(priority_queue <ObjectToPrint*>& Queue);
+	bool BlitFromQueue(priority_queue <ObjectToPrint*, vector<ObjectToPrint*>, OrderCrit>& Queue)const;
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true) const;
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
@@ -106,7 +94,7 @@ public:
 	SDL_Color		background;
 
 	//Priority queue using the new template
-	priority_queue <ObjectToPrint*> SpriteOrderer;
+	priority_queue <ObjectToPrint*,vector<ObjectToPrint*>,OrderCrit> SpriteOrderer;
 };
 
 #endif // __j1RENDER_H__

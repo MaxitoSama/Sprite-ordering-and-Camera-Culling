@@ -42,6 +42,7 @@ bool j1Scene::Start()
 	win_height = App->win->screen_surface->h;
 	win_width = App->win->screen_surface->w;
 	App->map->Load("Class Test.tmx");
+	texture=App->tex->Load("assets/enemies/zombie/zombie.png");
 	App->audio->PlayMusic("audio/music/map1_music.ogg");
 	App->map->Draw_Colliders();
 	App->map->LoadEntities();
@@ -103,7 +104,7 @@ bool j1Scene::Update(float dt)
 		}
 	}
 
-	App->map->Draw();
+	App->render->FillQueue(3,texture, 200, 10, &rectu);
 
 	return true;
 }

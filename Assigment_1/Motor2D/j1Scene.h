@@ -50,6 +50,9 @@ public:
 	bool				Map_1;
 	bool				Map_2;
 
+	SDL_Texture*		texture;
+	SDL_Rect			rectu = { 0,0,100,500 };
+
 
 private:
 

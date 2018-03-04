@@ -63,7 +63,7 @@ void Entity::Draw(SDL_Texture* sprites, float direction, float dt)
 	if (animation != nullptr)
 	{		
 		//App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame(dt)),0.3f);
-		App->render->FillQueue(order, sprites, position.x, position.y, &(animation->GetCurrentFrame(dt)), 0.3f);
+		App->render->FillQueue(1, sprites, position.x, position.y, &(animation->GetCurrentFrame(dt)), 0.3f);
 	}
 	
 	if (type == COIN)
