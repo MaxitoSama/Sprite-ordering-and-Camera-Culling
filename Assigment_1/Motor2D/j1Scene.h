@@ -51,7 +51,7 @@ public:
 	bool				Map_2;
 
 	SDL_Texture*		texture;
-	SDL_Rect			rectu = { 0,0,100,500 };
+	SDL_Rect			rectu = { 0,0,430,322 };
 
 
 private:
