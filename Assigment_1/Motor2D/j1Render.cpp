@@ -277,6 +277,7 @@ bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*, vector<ObjectToPrint
 	while (Queue.empty()==false)
 	{
 		ObjectToPrint* first = Queue.top();
+		
 		uint scale = App->win->GetScale();
 
 		SDL_Rect rect;
@@ -293,35 +294,39 @@ bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*, vector<ObjectToPrint
 			SDL_QueryTexture(first->texture, NULL, NULL, &rect.w, &rect.h);
 		}
 
-		SDL_RendererFlip flag;
-
-		if (first->scale < 0)
+		if (CameraCollision(rect))
 		{
-			flag = SDL_FLIP_HORIZONTAL;
-			rect.w *= -first->scale;
-			rect.h *= -first->scale;
-		}
-		else
-		{
-			flag = SDL_FLIP_NONE;
-			rect.w *= first->scale;
-			rect.h *= first->scale;
-		}
 
-		SDL_Point* p = NULL;
-		SDL_Point pivot;
+			SDL_RendererFlip flag;
 
-		if (first->pivot_x != INT_MAX && first->pivot_y != INT_MAX)
-		{
-			pivot.x = first->pivot_x;
-			pivot.y = first->pivot_y;
-			p = &pivot;
-		}
+			if (first->scale < 0)
+			{
+				flag = SDL_FLIP_HORIZONTAL;
+				rect.w *= -first->scale;
+				rect.h *= -first->scale;
+			}
+			else
+			{
+				flag = SDL_FLIP_NONE;
+				rect.w *= first->scale;
+				rect.h *= first->scale;
+			}
 
-		if (SDL_RenderCopyEx(renderer, first->texture, first->section, &rect, first->angle, p, flag) != 0)
-		{
-			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-			ret = false;
+			SDL_Point* p = NULL;
+			SDL_Point pivot;
+
+			if (first->pivot_x != INT_MAX && first->pivot_y != INT_MAX)
+			{
+				pivot.x = first->pivot_x;
+				pivot.y = first->pivot_y;
+				p = &pivot;
+			}
+
+			if (SDL_RenderCopyEx(renderer, first->texture, first->section, &rect, first->angle, p, flag) != 0)
+			{
+				LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+				ret = false;
+			}
 		}
 
 		RELEASE(first);
@@ -333,3 +338,14 @@ bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*, vector<ObjectToPrint
 	return ret;
 }
 
+bool j1Render::CameraCollision(SDL_Rect rect)const
+{
+	if ((rect.x < -camera.x + camera.w && rect.x + rect.w > -camera.x) || (rect.x < -camera.x + camera.w  && rect.x + rect.w > -camera.x))
+	{
+		if (rect.y < -camera.y + camera.h && rect.y + rect.h > -camera.y)
+		{
+			return true;
+		}
+	}
+	return false;
+}

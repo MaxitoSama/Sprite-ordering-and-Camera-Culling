@@ -55,6 +55,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Developement  ========\Modules\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="House.cpp">
+      <Filter>Developement  ========\Modules\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Audio.h">
@@ -140,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="Brofiler\Brofiler.h">
       <Filter>Developement  ========\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="House.h">
+      <Filter>Developement  ========\Modules\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

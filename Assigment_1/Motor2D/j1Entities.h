@@ -16,8 +16,7 @@ enum ENTITY_TYPES
 {
 	NO_TYPE,
 	PLAYER,
-	ZOMBIE,
-	PLANE,
+	HOUSE,
 	COIN
 };
 
@@ -57,15 +56,14 @@ public:
 	pugi::xml_node		entity_config;
 	pugi::xml_document	config_file;
 	
-	SDL_Texture*		sprites_zombie = nullptr;
-	SDL_Texture*		sprites_plane = nullptr;
+	SDL_Texture*		sprites_house = nullptr;
 	SDL_Texture*		sprites_player = nullptr;
-	SDL_Texture*		sprites_coin = nullptr;
 
 	bool				draw_underlayed = false;
 	bool				Slowmo = false;
 
 	uint				SlowAnimationCap = 1;
+	uint				priority = 0;
 
 	float				Slowmo_dt = 0;
 

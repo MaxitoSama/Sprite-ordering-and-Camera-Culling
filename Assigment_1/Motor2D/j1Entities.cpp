@@ -10,6 +10,7 @@
 
 //Include all enemies
 #include "Player.h"
+#include "House.h"
 
 #define SPAWN_MARGIN 2000
 
@@ -41,10 +42,9 @@ bool j1Entities::Start()
 	LOG("loading enemies");
 
 	// Create a prototype for each enemy available so we can copy them around
-	sprites_zombie = App->tex->Load("assets/enemies/zombie/zombie.png");
-	sprites_plane = App->tex->Load("assets/enemies/plane/plane.png");
 	sprites_player = App->tex->Load("assets/character/character.png");
-	sprites_coin = App->tex->Load("assets/entities/coin.png");
+	sprites_house = App->tex->Load("assets/enemies/zombie/house.png");
+
 
 	if (player == nullptr)
 	{
@@ -114,10 +114,11 @@ bool j1Entities::Update(float dt)
 		{
 			if (entities[i] != nullptr && (entities[i]->collider != nullptr))
 			{
-				if (entities[i]->GetType() == ZOMBIE)
+				if (entities[i]->GetType() == HOUSE)
 				{
-					entities[i]->Draw(sprites_zombie, entities[i]->scale, Slowmo_dt);
+					entities[i]->Draw(sprites_house, entities[i]->scale, Slowmo_dt);
 				}
+				/*
 				if (entities[i]->GetType() == PLANE)
 				{
 					entities[i]->Draw(sprites_plane, entities[i]->scale, Slowmo_dt);
@@ -125,7 +126,7 @@ bool j1Entities::Update(float dt)
 				if (entities[i]->GetType() == COIN)
 				{
 					entities[i]->Draw(sprites_coin, entities[i]->scale, Slowmo_dt);
-				}
+				}*/
 			}
 		}
 
@@ -146,13 +147,9 @@ bool j1Entities::Update(float dt)
 		{
 			if (entities[i] != nullptr && (entities[i]->collider == nullptr))
 			{
-				if (entities[i]->GetType() == ZOMBIE)
+				if (entities[i]->GetType() == HOUSE)
 				{
-					entities[i]->Draw(sprites_zombie, entities[i]->scale, Slowmo_dt);
-				}
-				if (entities[i]->GetType() == PLANE)
-				{
-					entities[i]->Draw(sprites_plane, entities[i]->scale, Slowmo_dt);
+					entities[i]->Draw(sprites_house, entities[i]->scale, Slowmo_dt);
 				}
 			}
 		}
@@ -184,10 +181,8 @@ bool j1Entities::CleanUp()
 		}
 	}
 	
-	App->tex->UnLoad(sprites_coin);
-	App->tex->UnLoad(sprites_plane);
+	App->tex->UnLoad(sprites_house);
 	App->tex->UnLoad(sprites_player);
-	App->tex->UnLoad(sprites_zombie);
 
 	return true;
 }
@@ -224,9 +219,9 @@ void j1Entities::SpawnEnemy(const EnemyInfo& info)
 		case ENTITY_TYPES::PLAYER:
 			entities[i] = new Player(info.x, info.y, info.type);
 			break;
-		/*case ENTITY_TYPES::COIN:
-			entities[i] = new Coin(info.x, info.y, info.type);
-			break;*/
+		case ENTITY_TYPES::HOUSE:
+			entities[i] = new House(info.x, info.y, info.type);
+			break;
 		}
 	}
 }
@@ -245,7 +240,7 @@ bool j1Entities::Load(pugi::xml_node& data)
 	{
 		if (entities[i] != nullptr)
 		{
-			if (entities[i]->type == ZOMBIE)
+		/*	if (entities[i]->type == ZOMBIE)
 			{
 				entities[i]->Load(zombies);
 				zombies=zombies.next_sibling();
@@ -254,7 +249,7 @@ bool j1Entities::Load(pugi::xml_node& data)
 			{
 				entities[i]->Load(planes);
 				planes = planes.next_sibling();
-			}
+			}*/
 		}
 	}
 	
@@ -275,14 +270,14 @@ bool j1Entities::Save(pugi::xml_node& data) const
 	{
 		if (entities[i] != nullptr)
 		{
-			if (entities[i]->type == ZOMBIE)
+			/*if (entities[i]->type == ZOMBIE)
 			{
 				entities[i]->Save(zombies);
 			}
 			if (entities[i]->type == PLANE)
 			{
 				entities[i]->Save(planes);
-			}
+			}*/
 		}
 	}
 

@@ -94,7 +94,7 @@ Player::Player(int x, int y, ENTITY_TYPES type) : Entity(x, y,type)
 	lives = 3;
 
 	animation = &idle_right;
-	scale = 0.5f;
+	scale = 0.3f;
 	initial_pos.x = original_pos.x;
 	Curr_map = 1;
 }
@@ -146,8 +146,8 @@ bool Player::Start()
 	godmode = App->tex->Load("assets/character/god_mode.png");
 
 	LOG("Loading Player Collider");
-	collider = App->colliders->AddCollider({ (int)original_pos.x, (int)original_pos.y, 200 / 4, 332 / 2 }, COLLIDER_PLAYER, (j1Module*)App->entities);
-	collider_feet = App->colliders->AddCollider({ ((int)original_pos.x + (263 / 4) - 54), (int)original_pos.y + (310 / 2) - 1, 64, 10 }, COLLIDER_FEET, (j1Module*)App->entities);
+	collider = App->colliders->AddCollider({ (int)original_pos.x, (int)original_pos.y, (int)(283*scale)-20, (int)(332*scale) }, COLLIDER_PLAYER, (j1Module*)App->entities);
+	//collider_feet = App->colliders->AddCollider({ ((int)original_pos.x + (263 / 4) - 54), (int)original_pos.y + (310 / 2) - 1, 64, 10 }, COLLIDER_FEET, (j1Module*)App->entities);
 
 	//Init Screen vars----------------------------------------------------
 	win_width = App->win->screen_surface->w;
@@ -155,6 +155,8 @@ bool Player::Start()
 	win_scale = App->win->GetScale();
 
 	//GOD = false;
+
+	priority = 2;
 	
 	return true;
 }

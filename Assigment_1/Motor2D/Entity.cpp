@@ -30,23 +30,18 @@ void Entity::Draw(SDL_Texture* sprites, float direction, float dt)
 
 	if (collider != nullptr)
 	{
-		
-		if (collider->type == COLLIDER_PLAYER && App->entities->player->slide)
+		if (collider->type == COLLIDER_PLAYER )
 		{
-			collider->SetPos((int)position.x, (int)position.y+40);
-		}
-		else
-		{
-			collider->SetPos((int)position.x+45, (int)position.y);
+			collider->SetPos((int)position.x, (int)position.y);
 		}
 
 		if (collider->type == COLLIDER_ENEMY && alive)
 		{
 			collider->SetPos((int)position.x+25, (int)position.y + 5);
 		}
-		if (collider->type == COLLIDER_COIN )
+		if (collider->type == COLLIDER_WALL)
 		{
-			collider->SetPos((int)position.x, (int)position.y);
+			collider->SetPos((int)position.x, (int)position.y+110);
 		}
 	}
 
@@ -63,12 +58,12 @@ void Entity::Draw(SDL_Texture* sprites, float direction, float dt)
 	if (animation != nullptr)
 	{		
 		//App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame(dt)),0.3f);
-		App->render->FillQueue(2, sprites, position.x, position.y, &(animation->GetCurrentFrame(dt)), 0.3f);
+		App->render->FillQueue(priority, sprites, position.x, position.y, &(animation->GetCurrentFrame(dt)), 0.3f);
 	}
 	
-	if (type == COIN)
+	if (type == HOUSE)
 	{
-		App->render->Blit(sprites, position.x, position.y,NULL, scale);
+		App->render->FillQueue(priority,sprites, position.x, position.y,NULL, scale);
 	}
 }
 

@@ -53,6 +53,8 @@ bool j1Scene::Start()
 	limit_y = map_height - win_height;
 	limit_x = map_width - win_width / 2;
 
+	App->entities->AddEnemy(HOUSE, 225, 500);
+
 	return true;
 }
 
@@ -69,14 +71,6 @@ bool j1Scene::Update(float dt)
 	BROFILER_CATEGORY("Update_Scene1 ", Profiler::Color::MediumOrchid)
 
  	win_position_y = App->render->camera.y*-1;
-
-	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-	{
-		App->SaveGame();
-	}
-
-	if(App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		App->LoadGame();
 
 
 	if (App->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
@@ -117,7 +111,7 @@ bool j1Scene::Update(float dt)
 
 	App->map->Draw();
 
-	App->render->FillQueue(order,texture, 200, 10, &rectu);
+	//App->render->FillQueue(order,texture, 200, 10, &rectu);
 
 	return true;
 }

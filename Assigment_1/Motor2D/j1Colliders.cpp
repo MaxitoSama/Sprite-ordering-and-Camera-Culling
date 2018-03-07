@@ -84,58 +84,18 @@ bool j1Colliders::Update(float dt)
 			}
 
 			c2 = colliders[k];
-
-			if (c1->type == COLLIDER_WALL && c2->type == COLLIDER_PLAYER && c1->CheckFutureCrashColision(c2->rect, distance, App->entities->player->speed.x) == true
-				&& (App->input->GetKey(SDL_SCANCODE_D )==KEY_REPEAT|| App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT))
-			{
-				App->entities->player->original_pos.x -= distance;
-			}
-
-			if (c1->type == COLLIDER_DEATH && c2->type == COLLIDER_PLAYER && c1->CheckCollision(c2->rect) == true)
-			{
-				App->entities->player->dead = true;
-				App->entities->player->dead_by_fall = true;
-				App->entities->Slowmo = false;
-			}
 			
 			for (uint i = 0; i < MAX_ENEMIES; ++i)
 			{
 				if (App->entities->entities[i] != nullptr)
 				{
-					if (c2 == App->entities->entities[i]->GetCollider() && c1->type == COLLIDER_WALL && c2->type == COLLIDER_ENEMY && c1->CheckFutureCrashColision(c2->rect, distance, App->entities->entities[i]->speed.x) == true)
-					{
-						App->entities->entities[i]->original_pos.x -= distance;
-					}
 					if (c2 == App->entities->entities[i]->GetCollider() && c1->type == COLLIDER_FLOOR && c2->type == COLLIDER_ENEMY && c1->CheckFutureFallColision(c2->rect, distance,Slowdt, App->entities->entities[i]->speed.y) == true)
 					{
 						App->entities->entities[i]->original_pos.y -= distance;
 					}
-					if (c2 == App->entities->entities[i]->GetColliderHead() && c1->type == COLLIDER_FEET && c2->type == COLLIDER_HEAD && c1->CheckFutureFallColision(c2->rect, distance, dt, App->entities->entities[i]->speed.y) == true)
+					if (c2 == App->entities->entities[i]->GetCollider() && c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL && c2->CheckFutureCrashColision(c1->rect, distance, App->entities->player->speed.x) == true)
 					{
-						if (!App->entities->player->dead)
-						{
-							App->entities->player->original_pos.y -= distance + 900 * dt;
-							App->entities->entities[i]->collider->to_delete = true;
-							App->entities->entities[i]->collider = nullptr;
-							App->entities->entities[i]->collider_head->to_delete = true;
-							App->entities->entities[i]->collider_head = nullptr;
-							App->entities->entities[i]->alive = false;
-
-							if (App->entities->entities[i]->GetType() == ZOMBIE)
-							{
-								App->entities->player->score += 500;
-							}
-							else
-							{
-								App->entities->player->score += 1000;
-							}
-						}
-					}
-					if (c2 == App->entities->entities[i]->GetCollider() && c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_COIN && c1->CheckCollision(c2->rect) == true)
-					{
-						App->entities->player->coins ++;
-						EraseCollider(App->entities->entities[i]->collider);
-						App->entities->entities[i]->alive = false;
+						App->entities->player->original_pos.x -= distance;
 					}
 				}
 			}
@@ -222,14 +182,6 @@ void j1Colliders::DebugDraw()
 			case COLLIDER_COIN: // black
 				App->render->DrawQuad(colliders[i]->rect, 0, 100, 0, alpha, false);
 				break;
-			}
-		}
-
-		for (uint i = 0; i < MAX_ENEMIES; ++i)
-		{
-			if (App->entities->entities[i] != nullptr)
-			{
-				App->pathfinding->DrawPath(App->entities->entities[i]->Enemypath);
 			}
 		}
 	}

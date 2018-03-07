@@ -77,6 +77,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="House.cpp" />
     <ClCompile Include="j1Colliders.cpp" />
     <ClCompile Include="j1Entities.cpp" />
     <ClCompile Include="j1Main.cpp" />
@@ -98,6 +99,7 @@
   <ItemGroup>
     <ClInclude Include="Brofiler\Brofiler.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="House.h" />
     <ClInclude Include="j1Colliders.h" />
     <ClInclude Include="j1Entities.h" />
     <ClInclude Include="j1Map.h" />
