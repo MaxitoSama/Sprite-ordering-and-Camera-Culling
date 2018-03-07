@@ -115,6 +115,8 @@ bool j1Scene::Update(float dt)
 		order = 3;
 	}
 
+	App->map->Draw();
+
 	App->render->FillQueue(order,texture, 200, 10, &rectu);
 
 	return true;
