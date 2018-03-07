@@ -324,6 +324,8 @@ bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*, vector<ObjectToPrint
 			ret = false;
 		}
 
+		RELEASE(first);
+
 		Queue.pop();
 		num_blit++;
 	}

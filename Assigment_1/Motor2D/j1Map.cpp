@@ -75,13 +75,13 @@ void j1Map::Draw()
 
 	LOG("Vector elements %d", QueueRects.size());
 
-	for (int i = 0; i < QueueRects.size(); i++)
+	/*for (int i = 0; i < QueueRects.size(); i++)
 	{
 		RELEASE(QueueRects[i]);
 	}
 
 	LOG("Vector elements befor clear %d", QueueRects.size());
-	QueueRects.clear();
+	QueueRects.clear();*/
 
 	LOG("Vector elements after clear %d", QueueRects.size());
 
