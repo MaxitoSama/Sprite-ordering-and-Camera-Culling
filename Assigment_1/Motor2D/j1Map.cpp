@@ -37,7 +37,7 @@ void j1Map::Draw()
 	if (map_loaded == false)
 		return;
 
-	uint tile_indx;
+	uint tile_indx=0;
 	uint layer_indx;
 	uint background_indx=0;
 	
@@ -61,14 +61,26 @@ void j1Map::Draw()
 				{
 					TileSet* tileset = GetTilesetFromTileId(tile_id);
 
-					SDL_Rect r = tileset->GetTileRect(tile_id);
 					iPoint pos = MapToWorld(x, y);
 
-					App->render->FillQueue(2,tileset->texture, pos.x, pos.y, &r);
+					QueueRects.push_back(new SDL_Rect(tileset->GetTileRect(tile_id)));
+
+					App->render->FillQueue(0,tileset->texture, pos.x, pos.y, QueueRects[tile_indx]);
+
+					tile_indx++;
 				}
 			}
 		}
 	}
+
+	for (int i = 0; i < QueueRects.size(); i++)
+	{
+		delete QueueRects[i];
+		QueueRects[i] = nullptr;
+	}
+
+	QueueRects.clear();
+
 }
 
 //draw the colliders

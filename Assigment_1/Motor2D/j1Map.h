@@ -1,12 +1,17 @@
 #ifndef __j1MAP_H__
 #define __j1MAP_H__
 
+#include <vector>
+#include <array>
+
 #include "PugiXml/src/pugixml.hpp"
 #include "p2List.h"
 #include "p2Point.h"
 #include "j1Module.h"
 #include "j1Colliders.h"
 #include "j1Entities.h"
+
+using namespace std;
 
 struct MapLayer 
 {
@@ -139,5 +144,9 @@ private:
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+
+	vector<SDL_Rect*>	QueueRects;
+
+	
 };
 #endif // __j1MAP_H__

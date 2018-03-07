@@ -108,11 +108,11 @@ bool j1Scene::Update(float dt)
 
 	if (App->entities->player->position.y > 200)
 	{
-		order = 0;
+		order = 1;
 	}
 	else
 	{
-		order = 2;
+		order = 3;
 	}
 
 	App->render->FillQueue(order,texture, 200, 10, &rectu);

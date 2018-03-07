@@ -272,6 +272,7 @@ void j1Render::FillQueue(uint Priority,SDL_Texture* texture, int x, int y, const
 bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*, vector<ObjectToPrint*>, OrderCrit>& Queue)const
 {
 	bool ret = true;
+	int num_blit = 0;
 
 	while (Queue.empty()==false)
 	{
@@ -324,6 +325,7 @@ bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*, vector<ObjectToPrint
 		}
 
 		Queue.pop();
+		num_blit++;
 	}
 
 	return ret;
