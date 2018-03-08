@@ -235,8 +235,7 @@ void j1App::FinishUpdate()
 	}
 
 	static char title[256];
-	sprintf_s(title, 256, "Ninja's Path || Av.FPS: %.2f Last Frame Ms: %02u Last sec frames: %i  Time since startup: %.3f Frame Count: %lu Cap:%s",
-	avg_fps, last_frame_ms, frames_on_last_update, seconds_since_startup, frame_count,cap);
+	sprintf_s(title, 256, "Sprite Order and Camera Culling || Queue Elements: %d  Blits per Frame: %d ",render->SpriteOrderer.size(), BlitsPerFrame);
 	App->win->SetTitle(title);
 
 	uint32 framerate = 1000 / framerate_cap;
@@ -293,12 +292,6 @@ bool j1App::DoUpdate()
 		}
 
 		ret = (*item)->Update(dt);
-	}
-
-	if (ret == true)
-	{
-		//LOG("Elementos de cola %d", render->SpriteOrderer.size());
-		render->BlitFromQueue(render->SpriteOrderer);
 	}
 
 	return ret;

@@ -96,6 +96,10 @@ public:
 
 	//Priority queue using the new template
 	priority_queue <ObjectToPrint*,vector<ObjectToPrint*>,OrderCrit> SpriteOrderer;
+
+private:
+
+	bool	Optimize;
 };
 
 #endif // __j1RENDER_H__
