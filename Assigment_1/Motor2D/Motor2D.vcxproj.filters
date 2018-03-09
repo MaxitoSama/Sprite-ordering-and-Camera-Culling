@@ -147,6 +147,9 @@
     <ClInclude Include="House.h">
       <Filter>Developement  ========\Modules\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>Programming  2 =======</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Game\config.xml" />
