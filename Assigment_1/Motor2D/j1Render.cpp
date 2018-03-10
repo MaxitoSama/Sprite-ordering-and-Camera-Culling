@@ -294,13 +294,13 @@ void j1Render::FillQueue(uint Priority,SDL_Texture* texture, int x, int y, const
 	{
 		if (CameraCollision(aux_rect))
 		{
-			ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y);
+			ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y,aux_rect);
 			SpriteOrderer.push(auxObject);
 		}
 	}
 	else
 	{
-		ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y);
+		ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y,aux_rect);
 		SpriteOrderer.push(auxObject);
 	}
 }

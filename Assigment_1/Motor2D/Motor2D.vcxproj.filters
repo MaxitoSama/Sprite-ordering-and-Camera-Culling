@@ -58,6 +58,9 @@
     <ClCompile Include="House.cpp">
       <Filter>Developement  ========\Modules\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Quadtree.cpp">
+      <Filter>Programming  2 =======</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="j1Audio.h">

@@ -7,6 +7,7 @@
 #include "SDL/include/SDL.h"
 #include "p2Point.h"
 #include "j1Module.h"
+#include "Quadtree.h"
 
 using namespace std;
 
@@ -14,8 +15,8 @@ class ObjectToPrint
 {
 public:
 
-	ObjectToPrint(uint priority,SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale, float speed, double angle, int pivot_x, int pivot_y) :
-		priority(priority),texture(texture), x(x), y(y), section(section), scale(scale), speed(speed),angle(angle),pivot_x(pivot_x), pivot_y(pivot_y) {}
+	ObjectToPrint(uint priority,SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale, float speed, double angle, int pivot_x, int pivot_y,SDL_Rect rect) :
+		priority(priority),texture(texture), x(x), y(y), section(section), scale(scale), speed(speed),angle(angle),pivot_x(pivot_x), pivot_y(pivot_y),rectangle(rect) {}
 
 	uint GetPriority()const
 	{
@@ -27,6 +28,7 @@ public:
 	int					x;
 	int					y;
 	const SDL_Rect*		section;
+	SDL_Rect			rectangle;
 	float				scale;
 	float				speed;
 	double				angle;
@@ -92,7 +94,12 @@ public:
 	SDL_Renderer*	renderer = nullptr;
 	SDL_Rect		camera;
 	SDL_Rect		viewport;
+
 	SDL_Color		background;
+
+	//Quadtree for camera culling
+	Quadtree		CullingQuadtree;
+
 
 	//Priority queue using the new template
 	priority_queue <ObjectToPrint*,vector<ObjectToPrint*>,OrderCrit> SpriteOrderer;

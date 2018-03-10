@@ -85,18 +85,18 @@ bool j1Scene::Update(float dt)
 		}
 	}	
 
-	if (App->entities->player->original_pos.x > win_width / 2 && App->entities->player->original_pos.x <= limit_x)
+	if (App->entities->player->original_pos.x > App->render->camera.x/2 /*&& App->entities->player->original_pos.x <= limit_x*/)
 	{
-		App->render->camera.x = App->entities->player->win_width / 2 - App->entities->player->original_pos.x;
+		//App->render->camera.x = App->entities->player->win_width / 2 - App->entities->player->original_pos.x;
+		App->render->camera.x = -(App->entities->player->position.x + App->entities->player->idle_right.frames[0].w / 2) + App->render->camera.w / 2;
 	}
 	
-	if (!App->win->fullscreen_window && App->entities->player->original_pos.y > win_height / 2 && win_position_y+win_height <map_height)
+	
+	if (App->entities->player->original_pos.y > -App->render->camera.y / 2 && App->entities->player->original_pos.x > App->render->camera.x / 2)
 	{
-		if (App->entities->player->original_pos.y + win_height / 2 < map_height)
-		{
-			App->render->camera.y = -App->entities->player->original_pos.y + win_height / 2;
-		}
+		App->render->camera.y = -(App->entities->player->position.y + App->entities->player->idle_right.frames[0].h / 2) + App->render->camera.h;
 	}
+	
 
 	int order = 0;
 
