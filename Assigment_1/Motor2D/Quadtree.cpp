@@ -8,7 +8,10 @@ void Quadtree::Clear()
 	//First we have to clear all the objects of the node
 	for (int i = 0; i < Objects.size(); i++)
 	{
-		RELEASE(Objects[i]);
+		if (Objects[i] = nullptr)
+		{
+			RELEASE(Objects[i]);
+		}
 	}
 	
 	Objects.clear();
@@ -63,7 +66,10 @@ bool Quadtree::insert(ObjectToPrint* Object)
 	}
 	else
 	{
-		Split();
+		if (Children[0] == nullptr)
+		{
+			Split();
+		}
 
 		bool ret = false;
 
@@ -79,11 +85,12 @@ void Quadtree::FillCameraQueue()
 {
 	for (int i = 0; i < Children.size(); i++)
 	{
+		//Check if the current node has children and if it's true then goes ther and does the same
 		if (Children[i] != nullptr)
 		{
 			Children[i]->FillCameraQueue();
 		}
-		else
+		else //If the node hasn't children then fill the priority Queue
 		{
 			if (App->render->CameraCollision(this->Space))
 			{

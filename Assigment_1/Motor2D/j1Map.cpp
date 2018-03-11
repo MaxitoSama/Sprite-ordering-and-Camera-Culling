@@ -41,10 +41,10 @@ void j1Map::Draw()
 	uint layer_indx;
 	uint background_indx=0;
 	
-	for (background_indx = 0; background_indx < data.backgrounds.count(); background_indx++)
-	{
-		App->render->FillQueue(4,data.backgrounds[background_indx]->Image, -App->render->camera.x, -App->render->camera.y, NULL, 1.0f);
-	}
+	//for (background_indx = 0; background_indx < data.backgrounds.count(); background_indx++)
+	//{
+		//App->render->FillQueue(4,data.backgrounds[background_indx]->Image, -App->render->camera.x, -App->render->camera.y, NULL, 1.0f);
+	//}
 
 	p2List_item<MapLayer*>* item = data.layers.start;
 
@@ -65,7 +65,8 @@ void j1Map::Draw()
 
 					QueueRects.push_back(new SDL_Rect(tileset->GetTileRect(tile_id)));
 
-					App->render->FillQueue(0,tileset->texture, pos.x, pos.y, QueueRects[tile_indx]);
+					//App->render->FillQueue(0,tileset->texture, pos.x, pos.y, QueueRects[tile_indx]);
+					App->render->FillVector(0, tileset->texture, pos.x, pos.y, QueueRects[tile_indx]);
 
 					tile_indx++;
 				}
