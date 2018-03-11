@@ -44,8 +44,17 @@ bool j1Render::Awake(pugi::xml_node& config)
 	}
 	else
 	{
-		camera.w = App->win->screen_surface->w-640;
-		camera.h = App->win->screen_surface->h-640;
+		if (App->win->screen_surface->w == 1500)
+		{
+			camera.w = App->win->screen_surface->w-640;
+			camera.h = App->win->screen_surface->h-640;
+		}
+		else
+		{
+			camera.w = App->win->screen_surface->w;
+			camera.h = App->win->screen_surface->h;
+		}
+		
 		camera.x = config.child("camera").attribute("camera_x").as_int();
 		camera.y = config.child("camera").attribute("camera_y").as_int();
 	}
