@@ -54,6 +54,7 @@ bool j1Scene::Start()
 	limit_x = map_width - win_width / 2;
 
 	App->entities->AddEnemy(HOUSE, 225, 500);
+	App->entities->AddEnemy(HOUSE, 600, 1000);
 
 	return true;
 }

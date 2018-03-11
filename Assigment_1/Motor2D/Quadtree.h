@@ -16,25 +16,21 @@ class Quadtree
 public:
 	Quadtree()
 	{
-		Level = 0;
 		Space = { 0,0,0,0 };
-		Parent = nullptr;
 
-		for (int i = 0; i < Childs.size(); i++)
+		for (int i = 0; i < Children.size(); i++)
 		{
-			Childs[i] = nullptr;
+			Children[i] = nullptr;
 		}
 	}
 
-	Quadtree(int level,SDL_Rect rect,Quadtree* parent=nullptr)
+	Quadtree(SDL_Rect rect)
 	{
-		Level = level;
 		Space = rect;
-		Parent = parent;
 
-		for (int i = 0; i < Childs.size(); i++)
+		for (int i = 0; i < Children.size(); i++)
 		{
-			Childs[i] = nullptr;
+			Children[i] = nullptr;
 		}
 	}
 
@@ -45,22 +41,20 @@ public:
 
 	void Clear();
 	void Split();
+	void FillCameraQueue();
 	
 	bool insert(ObjectToPrint* Object);
 	bool CheckBoundaries(const SDL_Rect& r);
 	
 
 public:
-
-	int					Level;
 	
-	SDL_Rect			Space;
+	SDL_Rect				Space;
 	
-	vector<ObjectToPrint*>		Objects;
+	vector<ObjectToPrint*>	Objects;
 
-	array<Quadtree*,4>	Childs;
+	array<Quadtree*,4>		Children;
 
-	Quadtree*			Parent = nullptr;
 };
 
 

@@ -1,9 +1,27 @@
 #include "Quadtree.h"
+#include "j1App.h"
 #include "j1Render.h"
 
 
 void Quadtree::Clear()
 {
+	//First we have to clear all the objects of the node
+	for (int i = 0; i < Objects.size(); i++)
+	{
+		RELEASE(Objects[i]);
+	}
+	
+	Objects.clear();
+
+	//Now we have to call all the children of the node and check if they have also childre 
+	for (int i = 0; i < Children.size(); i++)
+	{
+		if (Children[i] != nullptr)
+		{
+			Children[i]->Clear();
+			Children[i] = nullptr;
+		}
+	}
 
 }
 
@@ -16,16 +34,16 @@ void Quadtree::Split()
 	w = (this->Space.w / 2);
 	h = (this->Space.h / 2);
 
-	Childs[0] = new Quadtree(this->Level + 1, { x,	y, w, h }, this);
-	Childs[1] = new Quadtree(this->Level + 1, { x + w, y, w, h }, this);
-	Childs[2] = new Quadtree(this->Level + 1, { x, y + h, w, h }, this);
-	Childs[3] = new Quadtree(this->Level + 1, { x + w, y + h, w, h }, this);
+	Children[0] = new Quadtree({ x,	y, w, h });
+	Children[1] = new Quadtree({ x + w, y, w, h });
+	Children[2] = new Quadtree({ x, y + h, w, h });
+	Children[3] = new Quadtree({ x + w, y + h, w, h });
 
 }
 
 bool Quadtree::insert(ObjectToPrint* Object)
 {
-	//The objects is empty so we don't need it
+	//The objects is empty so we don't add it
 	if (Object == nullptr)
 	{
 		return false;
@@ -50,9 +68,30 @@ bool Quadtree::insert(ObjectToPrint* Object)
 		bool ret = false;
 
 		//Do the same process for the childs
-		for (int i = 0; i < Childs.size() && ret == false; i++)
+		for (int i = 0; i < Children.size() && ret == false; i++)
 		{
-			ret = Childs[i]->insert(Object);
+			ret = Children[i]->insert(Object);
+		}
+	}
+}
+
+void Quadtree::FillCameraQueue()
+{
+	for (int i = 0; i < Children.size(); i++)
+	{
+		if (Children[i] != nullptr)
+		{
+			Children[i]->FillCameraQueue();
+		}
+		else
+		{
+			if (App->render->CameraCollision(this->Space))
+			{
+				for (int j = 0; j < Objects.size(); j++)
+				{
+					App->render->FillQueue_v_2(Objects[j]);
+				}
+			}
 		}
 	}
 }

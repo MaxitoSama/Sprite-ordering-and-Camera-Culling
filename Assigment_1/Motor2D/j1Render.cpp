@@ -305,6 +305,13 @@ void j1Render::FillQueue(uint Priority,SDL_Texture* texture, int x, int y, const
 	}
 }
 
+void j1Render::FillQueue_v_2(ObjectToPrint* new_object)
+{
+	if (new_object != nullptr)
+	{
+		SpriteOrderer.push(new_object);
+	}
+}
 //This function prints all the elements of the queue
 bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*, vector<ObjectToPrint*>, OrderCrit>& Queue)const
 {
