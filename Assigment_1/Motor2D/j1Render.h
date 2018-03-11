@@ -15,8 +15,8 @@ class ObjectToPrint
 {
 public:
 
-	ObjectToPrint(uint priority,SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale, float speed, double angle, int pivot_x, int pivot_y,SDL_Rect rect) :
-		priority(priority),texture(texture), x(x), y(y), section(section), scale(scale), speed(speed),angle(angle),pivot_x(pivot_x), pivot_y(pivot_y),rectangle(rect) {}
+	ObjectToPrint(uint priority,SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale, float speed, double angle, int pivot_x, int pivot_y) :
+		priority(priority),texture(texture), x(x), y(y), section(section), scale(scale), speed(speed),angle(angle),pivot_x(pivot_x), pivot_y(pivot_y){}
 
 	uint GetPriority()const
 	{
@@ -28,7 +28,6 @@ public:
 	int					x;
 	int					y;
 	const SDL_Rect*		section;
-	SDL_Rect			rectangle;
 	float				scale;
 	float				speed;
 	double				angle;
@@ -77,15 +76,13 @@ public:
 	void SetViewPort(const SDL_Rect& rect);
 	void ResetViewPort();
 	void FillQueue(uint Priority,SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float scale = 1.0f, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
-	void FillVector(uint Priority, SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float scale = 1.0f, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
-	void FillQueue_v_2(ObjectToPrint* new_object);
 
 	bool Blit(SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float scale = 1.0f, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX) const;
 	bool BlitFromQueue(priority_queue <ObjectToPrint*, vector<ObjectToPrint*>, OrderCrit>& Queue)const;
 	bool DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool filled = true, bool use_camera = true) const;
 	bool DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
-	bool CameraCollision(SDL_Rect rect)const;
+	bool CameraCollision(const SDL_Rect& rect)const;
 
 
 	// Set background color
@@ -99,13 +96,7 @@ public:
 
 	SDL_Color		background;
 
-	//Quadtree for camera culling
-	Quadtree		CullingQuadtree;
-
-
 	//Priority queue using the new template
-	vector<ObjectToPrint*>	AllObjects;
-
 	priority_queue <ObjectToPrint*,vector<ObjectToPrint*>,OrderCrit> SpriteOrderer;
 
 private:

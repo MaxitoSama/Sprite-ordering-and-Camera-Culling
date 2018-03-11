@@ -1,16 +1,19 @@
 #include "Quadtree.h"
 #include "j1App.h"
 #include "j1Render.h"
+#include "j1Colliders.h"
 
 
 void Quadtree::Clear()
 {
 	//First we have to clear all the objects of the node
-	for (int i = 0; i < Objects.size(); i++)
+	list<Collider*>::iterator item = Objects.begin();
+
+	for (item;item!=Objects.end();item++)
 	{
-		if (Objects[i] = nullptr)
+		if (*item == nullptr)
 		{
-			RELEASE(Objects[i]);
+			RELEASE(*item);
 		}
 	}
 	
@@ -44,16 +47,16 @@ void Quadtree::Split()
 
 }
 
-bool Quadtree::insert(ObjectToPrint* Object)
+bool Quadtree::insert(Collider* collider)
 {
 	//The objects is empty so we don't add it
-	if (Object == nullptr)
+	if (collider == nullptr)
 	{
 		return false;
 	}
 
 	//The object it's not inside the Rectangle Space
-	if (CheckBoundaries(Object->rectangle) == false)
+	if (CheckBoundaries(collider->rect) == false)
 	{
 		return false;
 	}
@@ -61,11 +64,12 @@ bool Quadtree::insert(ObjectToPrint* Object)
 	//If it's inside the Space, check if we have to split or not
 	if (Objects.size() < MAX_OBJECTS)
 	{
-		Objects.push_back(Object);
+		Objects.push_back(collider);
 		return true;
 	}
 	else
 	{
+		//Check if the space has children and if not, create the children
 		if (Children[0] == nullptr)
 		{
 			Split();
@@ -76,31 +80,44 @@ bool Quadtree::insert(ObjectToPrint* Object)
 		//Do the same process for the childs
 		for (int i = 0; i < Children.size() && ret == false; i++)
 		{
-			ret = Children[i]->insert(Object);
+			Objects.remove(collider);
+			ret = Children[i]->insert(collider);
 		}
 	}
 }
 
-void Quadtree::FillCameraQueue()
+list<Collider*> Quadtree::FillCollisionList(list<Collider*> &CollidersList, Collider* collider)
 {
-	for (int i = 0; i < Children.size(); i++)
+	bool ret = false;
+
+	for (list<Collider*>::iterator item = Objects.begin(); item != Objects.end(); item++)
 	{
-		//Check if the current node has children and if it's true then goes ther and does the same
-		if (Children[i] != nullptr)
+		if (collider == *item)
 		{
-			Children[i]->FillCameraQueue();
+			ret = true;
+			break;
 		}
-		else //If the node hasn't children then fill the priority Queue
+	}
+
+	if (ret == true)
+	{
+		for (list<Collider*>::iterator item = Objects.begin(); item != Objects.end(); item++)
 		{
-			if (App->render->CameraCollision(this->Space))
+			CollidersList.push_back(*item);
+		}
+	}
+	else
+	{
+		if (Children[0] != nullptr)
+		{
+			for (int i = 0; i < Children.size(); i++)
 			{
-				for (int j = 0; j < Objects.size(); j++)
-				{
-					App->render->FillQueue_v_2(Objects[j]);
-				}
+				Children[i]->FillCollisionList(CollidersList, collider);
 			}
 		}
 	}
+
+	return CollidersList;
 }
 
 bool Quadtree::CheckBoundaries(const SDL_Rect& r)

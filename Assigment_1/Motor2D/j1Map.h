@@ -138,15 +138,13 @@ private:
 public:
 
 	MapData data;
+	vector<SDL_Rect*>	QueueRects;
 
 private:
 
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
-
-	vector<SDL_Rect*>	QueueRects;
-
 	
 };
 #endif // __j1MAP_H__

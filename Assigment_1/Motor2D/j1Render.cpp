@@ -62,11 +62,6 @@ bool j1Render::Start()
 
 	Optimize = true;
 
-	int map_width = App->map->data.width*App->map->data.tile_width;
-	int map_height = App->map->data.height*App->map->data.tile_height;
-
-	CullingQuadtree.Space = {0,0,map_width,map_height};
-
 	return true;
 }
 
@@ -85,25 +80,8 @@ bool j1Render::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F1)==KEY_DOWN)
 		Optimize = !Optimize;
 
-	for(int i = 0; i < AllObjects.size(); i++)
-	{
-		CullingQuadtree.insert(AllObjects[i]);
-	}
-
-	CullingQuadtree.FillCameraQueue();
 	BlitFromQueue(SpriteOrderer);
 	
-	for (int i = 0; i < AllObjects.size(); i++)
-	{
-		if (AllObjects[i] != nullptr)
-		{
-			RELEASE(AllObjects[i]);
-		}
-	}
-
-	CullingQuadtree.Clear();
-	AllObjects.clear();
-
 	return true;
 }
 
@@ -318,47 +296,18 @@ void j1Render::FillQueue(uint Priority,SDL_Texture* texture, int x, int y, const
 	{
 		if (CameraCollision(aux_rect))
 		{
-			ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y,aux_rect);
+			ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y);
 			SpriteOrderer.push(auxObject);
 		}
 	}
 	else
 	{
-		ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y,aux_rect);
+		ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y);
 		SpriteOrderer.push(auxObject);
 	}
 }
 
-void j1Render::FillVector(uint Priority, SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale, float speed, double angle, int pivot_x, int pivot_y)
-{
-	SDL_Rect aux_rect;
 
-	aux_rect.x = x;
-	aux_rect.y = y;
-
-	if (section != NULL)
-	{
-		aux_rect.w = section->w;
-		aux_rect.h = section->h;
-	}
-	else
-	{
-		SDL_QueryTexture(texture, NULL, NULL, &aux_rect.w, &aux_rect.h);
-	}
-	
-	ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y, aux_rect);
-
-	AllObjects.push_back(auxObject);
-
-}
-
-void j1Render::FillQueue_v_2(ObjectToPrint* new_object)
-{
-	if (new_object != nullptr)
-	{
-		SpriteOrderer.push(new_object);
-	}
-}
 //This function prints all the elements of the queue
 bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*, vector<ObjectToPrint*>, OrderCrit>& Queue)const
 {
@@ -417,7 +366,7 @@ bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*, vector<ObjectToPrint
 		}
 		
 
-		//RELEASE(first);
+		RELEASE(first);
 
 		Queue.pop();
 		NumOfBlits++;
@@ -425,10 +374,17 @@ bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*, vector<ObjectToPrint
 
 	App->BlitsPerFrame = NumOfBlits;
 
+	for (int i = 0; i < App->map->QueueRects.size(); i++)
+	{
+		RELEASE(App->map->QueueRects[i]);
+	}
+
+	App->map->QueueRects.clear();
+
 	return ret;
 }
 
-bool j1Render::CameraCollision(SDL_Rect rect)const
+bool j1Render::CameraCollision(const SDL_Rect& rect)const
 {
 	if ((rect.x < -camera.x + camera.w && rect.x + rect.w > -camera.x) || (rect.x < -camera.x + camera.w  && rect.x + rect.w > -camera.x))
 	{

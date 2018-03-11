@@ -4,6 +4,9 @@
 #define MAX_COLLIDERS 1000
 
 #include "j1Module.h"
+#include "Quadtree.h"
+
+#include <list>
 
 enum COLLIDER_TYPE
 {
@@ -50,6 +53,7 @@ public:
 	~j1Colliders();
 
 	bool Awake();
+	bool Start();
 	bool PreUpdate();
 	bool Update(float dt);
 	bool CleanUp();
@@ -58,15 +62,27 @@ public:
 	bool EraseCollider(Collider* collider);
 	void DebugDraw();
 
+	void CollisionQuadtree();
+
 	bool checkColisionList(Collider* enemCollider);
 	
+public:
+
+	int numberCollisions_1;
+	int numberCollisions_2;
+
 private:
 
-	Collider*	colliders[MAX_COLLIDERS];
-	bool		debug = false;
-	float		distance = 0;
-	float		Slowdt;
+	Collider*		colliders[MAX_COLLIDERS];
 
+	bool			debug = false;
+
+	float			distance = 0;
+	float			Slowdt;
+
+	list<Collider*>	ListToCollide;
+
+	Quadtree*		ColQuadtree;
 };
 
 #endif // __ModuleCollision_H__

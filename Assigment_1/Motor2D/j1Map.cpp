@@ -65,27 +65,12 @@ void j1Map::Draw()
 
 					QueueRects.push_back(new SDL_Rect(tileset->GetTileRect(tile_id)));
 
-					//App->render->FillQueue(0,tileset->texture, pos.x, pos.y, QueueRects[tile_indx]);
-					App->render->FillVector(0, tileset->texture, pos.x, pos.y, QueueRects[tile_indx]);
-
+					App->render->FillQueue(0,tileset->texture, pos.x, pos.y, QueueRects[tile_indx]);
 					tile_indx++;
 				}
 			}
 		}
 	}
-
-	//LOG("Vector elements %d", QueueRects.size());
-
-	for (int i = 0; i < QueueRects.size(); i++)
-	{
-		RELEASE(QueueRects[i]);
-	}
-
-	////LOG("Vector elements befor clear %d", QueueRects.size());
-	QueueRects.clear();
-
-	//LOG("Vector elements after clear %d", QueueRects.size());
-
 }
 
 //draw the colliders

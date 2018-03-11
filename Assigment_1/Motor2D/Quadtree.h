@@ -6,8 +6,10 @@
 #include "SDL/include/SDL_rect.h"
 #include <vector>
 #include <array>
+#include <list>
 
 class ObjectToPrint;
+struct Collider;
 
 using namespace std;
 
@@ -41,19 +43,19 @@ public:
 
 	void Clear();
 	void Split();
-	void FillCameraQueue();
 	
-	bool insert(ObjectToPrint* Object);
+	bool insert(Collider* Object);
 	bool CheckBoundaries(const SDL_Rect& r);
-	
+
+	list<Collider*> FillCollisionList(list<Collider*> &CollidersList,Collider* collider);
 
 public:
 	
-	SDL_Rect				Space;
+	SDL_Rect			Space;
 	
-	vector<ObjectToPrint*>	Objects;
+	list<Collider*>		Objects;
 
-	array<Quadtree*,4>		Children;
+	array<Quadtree*,4>	Children;
 
 };
 

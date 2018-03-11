@@ -46,7 +46,14 @@ bool j1Scene::Start()
 	App->audio->PlayMusic("audio/music/map1_music.ogg");
 	App->map->Draw_Colliders();
 	App->map->LoadEntities();
-	App->colliders->AddCollider({ 25400,0,50,380 }, COLLIDER_WIN, this);
+
+	for (int i = 0; i < 8; i++)
+	{
+		App->colliders->AddCollider({ i*50,0,50,380 }, COLLIDER_WALL, this);
+	}
+
+
+	
 
 	map_height = App->map->data.height * App->map->data.tile_height;
 	map_width = App->map->data.width * App->map->data.tile_width;
@@ -54,7 +61,7 @@ bool j1Scene::Start()
 	limit_x = map_width - win_width / 2;
 
 	App->entities->AddEnemy(HOUSE, 225, 500);
-	App->entities->AddEnemy(HOUSE, 600, 1000);
+	App->entities->AddEnemy(HOUSE, 1000, 1000);
 
 	return true;
 }
