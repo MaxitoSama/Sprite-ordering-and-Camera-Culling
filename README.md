@@ -39,7 +39,7 @@ Now it's time to implement that in C++. The first thing that you hav to do is cr
 Now that we have our new class it's time to create our priority queue. The STL priority queue needs 3 template parameter:
 
 ```
-template <class T, class Container = vector<T>, class Compare = less<typename Container::value_type> > class priority_queue;
+std::priority_queue <class T, class Container = vector<T>, class Compare = less<typename Container::value_type> > name;
 ```
 
 * **T:** Define the type of elements of the queue.
@@ -57,5 +57,8 @@ struct OrderPriority
     }
 }
 ```
+In the end, our priority queue will has this declaration:
 
-
+```
+std::priority_queue <ObjectToPrint*,vector<ObjectToPrint*>,OrderPriority> SpriteOrdererQueue;
+```
