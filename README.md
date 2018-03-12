@@ -62,3 +62,14 @@ In the end, our priority queue will has this declaration:
 ```
 std::priority_queue <ObjectToPrint*,vector<ObjectToPrint*>,OrderPriority> SpriteOrdererQueue;
 ```
+
+Now that you have defined the priority queue we have to create a method that fills it and then, when all the frame logic been done, prints the sprites in the correct order. This can be done in two steps:
+* **void FillQueue():** This function has to replace your render function, because now we are going to send the sprites to the queue before the rendering. This function has to have the same arguments as your render funtion. It has to create a new ObjectToPrint elements and push it to the queue using SpriteOrdererQueue.push(ObjectToPrint).
+
+* **Render the Queue:** Once your priority queue has all your sprites in the correct order, it's time to render the sprites. You have to modify your Render function. Your render function now will recieve your priority queue as a parameter and it will have to render your sprites one by one while your queue is not empty. Remember to make pop of each element that has been printed. 
+
+### Improvement:
+
+Notice that you can change the parameters of the Z priority in any time, so you can achieve to do things like this one:
+
+|| INTRODUIR GIF DEL EFECTE DE LA CASA||
