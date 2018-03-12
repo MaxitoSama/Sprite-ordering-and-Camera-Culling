@@ -46,4 +46,16 @@ template <class T, class Container = vector<T>, class Compare = less<typename Co
 * **Vector Container:** Type of the internal container where the elements are stored.
 * **Compare**: A binary predicate that takes two elements from the vector, so they are type T, and then they are compared and returns a bool. In order to compare the elements and know the order is used the function comp(a,b) where comp is an object of type T and a and b are two elements of the vector container. The bool considers if a has to go before b or not.
 
+You will have to define the function that compares the elements and the best way is to create an struct with a boolean operator that needs the type of elements that you want to compare, in this case the struct will be:
+
+```
+struct OrderPriority
+{
+    bool operator()(const ObjectToPrint* Object_1, const ObjectToPrint* Object_2)
+    {
+    //priority condition
+    }
+}
+```
+
 
