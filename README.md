@@ -1,1 +1,1 @@
-# Sprite-ordering-and-Camera-Culling
+# Sprite Ordering and Camera Culling
