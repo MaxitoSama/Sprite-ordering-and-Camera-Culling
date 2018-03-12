@@ -61,6 +61,19 @@ bool Quadtree::insert(Collider* collider)
 		return false;
 	}
 
+	//----------------------------------------------------------------------
+	//Canviar, ara mateix no esborra els objectes d'un paret al crear fills!
+	//tampoc mira si un parent te fills primer!
+
+	if (Children[0] != nullptr)
+	{
+		for (int i = 0; i < Children.size(); i++)
+		{
+			Children[i]->insert(collider);
+		}
+	}
+
+
 	//If it's inside the Space, check if we have to split or not
 	if (Objects.size() < MAX_OBJECTS)
 	{
@@ -106,17 +119,15 @@ list<Collider*> Quadtree::FillCollisionList(list<Collider*> &CollidersList, Coll
 			CollidersList.push_back(*item);
 		}
 	}
-	else
+		
+	if (Children[0] != nullptr)
 	{
-		if (Children[0] != nullptr)
+		for (int i = 0; i < Children.size(); i++)
 		{
-			for (int i = 0; i < Children.size(); i++)
-			{
-				Children[i]->FillCollisionList(CollidersList, collider);
-			}
+			Children[i]->FillCollisionList(CollidersList, collider);
 		}
 	}
-
+	
 	return CollidersList;
 }
 
