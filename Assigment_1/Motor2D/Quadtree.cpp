@@ -73,30 +73,28 @@ bool Quadtree::insert(Collider* collider)
 		}
 	}
 
-
+	// fins aqui tot be!
+	
+	Objects.push_back(collider);
 	//If it's inside the Space, check if we have to split or not
-	if (Objects.size() < MAX_OBJECTS)
+	if (Objects.size() > MAX_OBJECTS)
 	{
-		Objects.push_back(collider);
-		return true;
-	}
-	else
-	{
-		//Check if the space has children and if not, create the children
 		if (Children[0] == nullptr)
 		{
 			Split();
 		}
 
-		bool ret = false;
-
-		//Do the same process for the childs
-		for (int i = 0; i < Children.size() && ret == false; i++)
+		for (list<Collider*>::iterator item = Objects.begin(); item != Objects.end(); item++)
 		{
-			Objects.remove(collider);
-			ret = Children[i]->insert(collider);
-		}
+			for (int i = 0; i < Children.size(); i++)
+			{
+				Children[i]->insert(*item);
+			}
+			Objects.remove(*item);
+		}		
 	}
+
+	return true;	
 }
 
 list<Collider*> Quadtree::FillCollisionList(list<Collider*> &CollidersList, Collider* collider)

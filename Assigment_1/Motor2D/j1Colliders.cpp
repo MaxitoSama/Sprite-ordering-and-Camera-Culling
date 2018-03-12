@@ -82,66 +82,66 @@ bool j1Colliders::Update(float dt)
 
 	numberCollisions_1 = 0;
 
-	//for (uint i = 0; i < MAX_COLLIDERS; ++i)
-	//{
-	//	// skip empty colliders
-	//	if (colliders[i] == nullptr || colliders[i]->type == COLLIDER_NONE)
-	//	{
-	//		continue;
-	//	}
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		// skip empty colliders
+		if (colliders[i] == nullptr || colliders[i]->type == COLLIDER_NONE)
+		{
+			continue;
+		}
 
-	//	c1 = colliders[i];
+		c1 = colliders[i];
 
-	//	for (uint k = i + 1; k < MAX_COLLIDERS; ++k)
-	//	{
-	//		// skip empty colliders
-	//		if (colliders[k] == nullptr)
-	//		{
-	//			continue;
-	//		}
+		for (uint k = i + 1; k < MAX_COLLIDERS; ++k)
+		{
+			// skip empty colliders
+			if (colliders[k] == nullptr)
+			{
+				continue;
+			}
 
-	//		c2 = colliders[k];
-	//		
-	//		for (uint i = 0; i < MAX_ENEMIES; ++i)
-	//		{
-	//			if (App->entities->entities[i] != nullptr)
-	//			{
-	//				if (c2 == App->entities->entities[i]->GetCollider() && c1->type == COLLIDER_FLOOR && c2->type == COLLIDER_ENEMY && c1->CheckFutureFallColision(c2->rect, distance,Slowdt, App->entities->entities[i]->speed.y) == true)
-	//				{
-	//					App->entities->entities[i]->original_pos.y -= distance;
-	//				}
-	//				if (c2 == App->entities->entities[i]->GetCollider() && c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL && c2->CheckFutureCrashColision(c1->rect, distance, App->entities->player->speed.x) == true)
-	//				{
-	//					App->entities->player->original_pos.x -= distance;
-	//				}
-	//			}
-	//		}
+			c2 = colliders[k];
+			
+			for (uint i = 0; i < MAX_ENEMIES; ++i)
+			{
+				if (App->entities->entities[i] != nullptr)
+				{
+					if (c2 == App->entities->entities[i]->GetCollider() && c1->type == COLLIDER_FLOOR && c2->type == COLLIDER_ENEMY && c1->CheckFutureFallColision(c2->rect, distance,Slowdt, App->entities->entities[i]->speed.y) == true)
+					{
+						App->entities->entities[i]->original_pos.y -= distance;
+					}
+					if (c2 == App->entities->entities[i]->GetCollider() && c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALL && c2->CheckFutureCrashColision(c1->rect, distance, App->entities->player->speed.x) == true)
+					{
+						App->entities->player->original_pos.x -= distance;
+					}
+				}
+			}
 
-	//		if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_ENEMY && c1->CheckFutureCrashColision(c2->rect, distance, App->entities->player->speed.x) == true && !App->entities->player->GOD)
-	//		{
-	//			App->entities->player->dead = true;
-	//			App->entities->player->dead_by_entity = true;
-	//			App->entities->Slowmo = false;
-	//		}
+			if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_ENEMY && c1->CheckFutureCrashColision(c2->rect, distance, App->entities->player->speed.x) == true && !App->entities->player->GOD)
+			{
+				App->entities->player->dead = true;
+				App->entities->player->dead_by_entity = true;
+				App->entities->Slowmo = false;
+			}
 
-	//		if ( App->entities->player != nullptr && c1->type == COLLIDER_FLOOR && c2->type == COLLIDER_FEET && c1->CheckFutureFallColision(c2->rect, distance, dt, App->entities->player->gravity) == true)
-	//		{
-	//			if(c2 == App->entities->player->collider_feet)
-	//			{
-	//				App->entities->player->original_pos.y -= distance;
-	//				App->entities->player->dead = false;
+			if ( App->entities->player != nullptr && c1->type == COLLIDER_FLOOR && c2->type == COLLIDER_FEET && c1->CheckFutureFallColision(c2->rect, distance, dt, App->entities->player->gravity) == true)
+			{
+				if(c2 == App->entities->player->collider_feet)
+				{
+					App->entities->player->original_pos.y -= distance;
+					App->entities->player->dead = false;
 
-	//				if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE)
-	//				{
-	//					App->entities->player->Jump = false;
-	//					App->entities->player->fall = false;
-	//				}
-	//			}
-	//		}
+					if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_IDLE)
+					{
+						App->entities->player->Jump = false;
+						App->entities->player->fall = false;
+					}
+				}
+			}
 
-	//		numberCollisions_1++;
-	//	}
-	//}
+			numberCollisions_1++;
+		}
+	}
 
 	CollisionQuadtree();
 

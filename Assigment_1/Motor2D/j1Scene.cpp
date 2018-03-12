@@ -47,13 +47,15 @@ bool j1Scene::Start()
 	App->map->Draw_Colliders();
 	App->map->LoadEntities();
 
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 30; i++)
 	{
 		App->colliders->AddCollider({ i*50,0,50,380 }, COLLIDER_WALL, this);
 	}
 
-
-	
+	for (int i = 0; i < 30; i++)
+	{
+		App->colliders->AddCollider({ i * 50,1000,50,380 }, COLLIDER_WALL, this);
+	}
 
 	map_height = App->map->data.height * App->map->data.tile_height;
 	map_width = App->map->data.width * App->map->data.tile_width;
