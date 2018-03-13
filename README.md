@@ -72,7 +72,10 @@ Now that you have defined the priority queue we have to create a method that fil
 
 Notice that you can change the parameters of the Z priority in any time, so you can achieve things like this one:
 
-|| INTRODUIR GIF DEL EFECTE DE LA CASA||
+<p align="center"> 
+<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/Sprite%20Order.gif" width="400">
+</p>
+
 
 ## Camera Culling
 
@@ -118,4 +121,12 @@ bool j1Render::CameraCollision(const SDL_Rect& rect)const
 
 ```
 
-## My First Results
+### First Results
+
+Here you have two gifs that show how works this camera culling. On the left is the vision of the camera and what the player will see. On the right you can see how works the camera culling.
+
+<p align="center"> 
+<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/Camera%20Culling_1.gif" width="400">
+<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/Camera%20Culling%202.gif" width="325">
+</p>
+
