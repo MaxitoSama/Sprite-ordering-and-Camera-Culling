@@ -147,4 +147,26 @@ The first solution is dividing our map in small cells or rectangles and then cal
 
 In order to solve that problem, you will have to create the Quadtree class.
 
+### Quadtrees
+
+A Quadtree is an other type of space partitioning, but instead of having an static grid of nodes or cells where the game calculates the collisions of all the entities that are inside, it generates automatically its own partitions. It's a tree data structure, that are one of the fastest data structures. Now I'm going to make you an acurate description of how it works.
+
+* First you have a number of entities in your map, lets say 3. This number will be the maximum number of entities that can be inside a rect.
+
+||IMATGE UN CUADRAT 3 ENTITATS|| IMATGE DE L'ARBRE|
+
+* If you insert another entity in the map, then the quadtree starts its work. It will divide your initial rect in four smaller rects. Now, the game will only calculate the collisions of the entities that are in the same new rects. 
+
+||IMATGE 4 CUADRATS 4 ENTITATS|| IMATGE DE L'ARBRE|
+
+* If you add more and more entities, the quadtree will be dividing more and more each rect in 4 smaller rects.
+
+||IMATGE x CUADRATS x ENTITATS|| IMATGE DE L'ARBRE|
+
+As you can see, we are generating smaller regions in order to reduce the amount of collisions checkings. This is a video that shows how it works in real time.
+
+<video src="https://www.youtube.com/embed/TJzq_kjtGTc" width="320" height="200" controls preload></video>
+
+
+
 
