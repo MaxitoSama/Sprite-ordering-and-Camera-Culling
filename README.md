@@ -163,10 +163,11 @@ A Quadtree is an other type of space partitioning, but instead of having an stat
 
 ||IMATGE x CUADRATS x ENTITATS|| IMATGE DE L'ARBRE|
 
-As you can see, we are generating smaller regions in order to reduce the amount of collisions checkings. This is a video that shows how it works in real time.
+As you can see, we are generating smaller regions in order to reduce the amount of collisions checkings. This is a gif that shows how it works in real time.
 
-[![Quadtree video](https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/maxresdefault.jpg )](https://www.youtube.com/embed/TJzq_kjtGTc)
-
+<p align="center"> 
+<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/Quadtree%20gif.gif" width="300">
+</p>
 
 ### Quadtree in C++
 
@@ -216,6 +217,12 @@ If we want to implement our Quadtree class in a camera cullin method, what we ha
 * Initialize the Quadtree with the map size rect.
 * Insert all the entities inside the Quadtree using the Inset() function.
 * Now that you have all the entities organized iside the quadtree, you can call the ColliderList(camera_rect) function with the camera rectangle. It will check where is the camera and with which rectangles it is colliding. Then the function will return a list of entities that are inside these rectangles. We hav to check if an entity can be or not inside the camera. If they are inside the camera we will send it to the Priority queue and the we will render it!
+
+### Quadtree Collision optimization
+
+This video shows how many times we reduce the amount of collisions checkings:
+
+[![Quadtree video](https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/maxresdefault.jpg )](https://www.youtube.com/embed/TJzq_kjtGTc)
 
 ---
 
