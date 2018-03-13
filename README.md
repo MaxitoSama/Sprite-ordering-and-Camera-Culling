@@ -136,4 +136,8 @@ Checking a big number of collisions every frame is a big waste of resources for 
 
 Here is the question: Do I have to calculate the collision between two objects that are very fare one from each other? The answer is No (If you are interested in optimize your game).
 
-The Solution is dividing our map in small cells or rectangles and then calculate only the collisions of the entities that are in the same rectangle. This is known as Space partitioning.
+### Space Partitioning
+
+The first solution is dividing our map in small cells or rectangles and then calculate only the collisions of the entities that are in the same rectangle. This is known as Space partitioning. However, there is a probleme with that method. If you have a lot of entities in the same rect or buch of rects then you will have to calculate the collision between big number of entities again. In order to solve that problem, you will have to create the Quadtree class.
+
+
