@@ -130,3 +130,10 @@ Here you have two gifs that show how works this camera culling. On the left is t
 <img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/Camera%20Culling%202.gif" width="325">
 </p>
 
+## Quadtrees
+
+Checking a big number of collisions every frame is a big waste of resources for our game. Every frame, our computer is checking if one entity is colliding with all the rest of entities and the same for each entity. For example, if you have 200 entities and you want to know how many entities your games is going to check every frame the solution is 200x200=40.000 operation. It's a really big number of operations.
+
+Here is the question: Do I have to calculate the collision between two objects that are very fare one from each other? The answer is No (If you are interested in optimize your game).
+
+The Solution is dividing our map in small cells or rectangles and then calculate only the collisions of the entities that are in the same rectangle. This is known as Space partitioning.
