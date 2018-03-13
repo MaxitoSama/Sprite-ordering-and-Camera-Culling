@@ -165,8 +165,7 @@ A Quadtree is an other type of space partitioning, but instead of having an stat
 
 As you can see, we are generating smaller regions in order to reduce the amount of collisions checkings. This is a video that shows how it works in real time.
 
-<video src="https://www.youtube.com/embed/TJzq_kjtGTc" width="320" height="200" controls preload></video>
-[![Quadtree video](https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/maxresdefault.jpg)](https://www.youtube.com/embed/TJzq_kjtGTc)
+[![Quadtree video](https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/maxresdefault.jpg )](https://www.youtube.com/embed/TJzq_kjtGTc)
 
 
 
