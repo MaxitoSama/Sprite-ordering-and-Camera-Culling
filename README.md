@@ -168,4 +168,59 @@ As you can see, we are generating smaller regions in order to reduce the amount 
 [![Quadtree video](https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/maxresdefault.jpg )](https://www.youtube.com/embed/TJzq_kjtGTc)
 
 
+### Quadtree in C++
 
+As I've said before, a quadtree is a tree structure wich means that you star in a node and from that node you go to its childrens. The faster way to do it is using recursive functions. The class template will be something like this one:
+
+```
+class Quadtree
+{
+public:
+	Quadtree(SDL_Rect rect)
+	{
+		Space = rect;
+		for (int i = 0; i < Children.size(); i++)
+		{
+			Children[i] = nullptr;
+		}
+	}
+
+	~Quadtree(){ Clear();}
+
+	void Clear();
+	void Split();
+	bool insert();
+	bool CheckBoundaries();
+	list<Collider*> FillCollisionList();
+
+public:
+	
+	SDL_Rect		Space; 		//Rect that deffine the node space
+	list<Collider*>		Objects;	//a list to store all the entities
+	array<Quadtree*,4>	Children;	//an empty array for the childrens
+
+};
+```
+
+You will need the following functions (You can find it in the code source):
+
+* **Clear():** This function goes node by node deleting all the Entities stored inside each one. 
+* **Split():**	This function divides the parent node into 4 children nodes when the current node reach the machimum number of entities.
+* **Insert():** This function insert all the entities in their apropriate child and if its necessary calls the split() function.
+* **ColliderList():** This function recieves an entity and it returns a list with all the entities that the collider maneger will have to check.
+* **CheckBoundaries()** Check if two rects are colliding.
+
+## Using The Quadtree in Camera Culling
+
+If we want to implement our Quadtree class in a camera cullin method, what we have to do is:
+* Initialize the Quadtree with the map size rect.
+* Insert all the entities inside the Quadtree using the Inset() function.
+* Now that you have all the entities organized iside the quadtree, you can call the ColliderList(camera_rect) function with the camera rectangle. It will check where is the camera and with which rectangles it is colliding. Then the function will return a list of entities that are inside these rectangles. We hav to check if an entity can be or not inside the camera. If they are inside the camera we will send it to the Priority queue and the we will render it!
+
+---
+# Links:
+[Easy way to create your Quadtree class and implementate it](https://gamedevelopment.tutsplus.com/tutorials/quick-tip-use-quadtrees-to-detect-likely-collisions-in-2d-space--gamedev-374)
+[Efficient and Well explainde Qadtree Collision](https://stackoverflow.com/questions/41946007/efficient-and-well-explained-implementation-of-a-quadtree-for-2d-collision-det)
+[What is a Quadtree? (spanish version)](https://www.genbetadev.com/programacion-de-videojuegos/teoria-de-colisiones-2d-quadtree)
+[Camera Culling idea](https://www.youtube.com/watch?v=zCaurIC49I4)
+[spatial Partition tutorial](https://www.youtube.com/watch?v=RN1GRX2ByLM&t=1950s)
