@@ -78,6 +78,43 @@ Notice that you can change the parameters of the Z priority in any time, so you 
 
 Camera Culling is a method used to optimize our games and the idea it's easy to understand. Now, your games is constantly rendering all the entities and the whole map, even if you are seeing it or not. The point here is that we don't want to render all these parts of the map and all these entities that are not being seen through the camera. This is the Camera Culling, a filter in the render funtion that says if an object can be rendered or not.
 
+<p align="center"> 
+<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/Camera%20Culling.png" width="600">
+</p>
+
 ### How can you do an easy Camera Culling effect?
 
+Well, as I've said, you have to create a filter in the render function that desides if an entity or a tile of the map has to be rendered or not. This filter will be a collision detector. You have to create a funtion that detects if an object is colliding with the camera or not. This function must return a bool where true means render and false means not render.
+
+However, you have created a priority queue where you have all your ObjectsToPrint and you also have a function that fills this priority queue. It will be faster if you first check which objects collide with the camera and then, if the collision is true, put them inside the priority queue where they will be ordererd than put all the objects inside the priority queue, order them and then check the collisions. Why? Because we are goig to check the collision with the camera with all the objects and if we first check the collision then we will order a few number of them intead of order all the objects and check all the collisions.
+
+You only have to modify the **FillQueue()** function created befor:
+
+```
+void j1Render::FillQueue(...)
+{
+	if (CameraCollision(ObjectToPrint->Rect))
+	{
+		ObjectToPrint* auxObject = new ObjectToPrint(...);
+		SpriteOrderer.push(ObjectToPrint);
+	}
+}
+```
+
+Where:
+
+```
+bool j1Render::CameraCollision(const SDL_Rect& rect)const
+{
+	if ((rect.x < -camera.x + camera.w && rect.x + rect.w > -camera.x) || (rect.x < -camera.x + camera.w  && rect.x + rect.w > -camera.x))
+	{
+		if (rect.y < -camera.y + camera.h && rect.y + rect.h > -camera.y)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+```
 
