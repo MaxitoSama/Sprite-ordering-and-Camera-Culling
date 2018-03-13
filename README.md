@@ -138,6 +138,13 @@ Here is the question: Do I have to calculate the collision between two objects t
 
 ### Space Partitioning
 
-The first solution is dividing our map in small cells or rectangles and then calculate only the collisions of the entities that are in the same rectangle. This is known as Space partitioning. However, there is a probleme with that method. If you have a lot of entities in the same rect or buch of rects then you will have to calculate the collision between big number of entities again. In order to solve that problem, you will have to create the Quadtree class.
+The first solution is dividing our map in small cells or rectangles and then calculate only the collisions of the entities that are in the same rectangle. This is known as Space partitioning. However, there is a probleme with that method. If you have a lot of entities in the same rect or buch of rects then you will have to calculate the collision between big number of entities again. 
+
+<p align="center"> 
+<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/spatial%20partitioning_1.png" width="200">
+<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/spatial%20partitioning_2.png" width="200">
+</p>
+
+In order to solve that problem, you will have to create the Quadtree class.
 
 
