@@ -70,6 +70,14 @@ Now that you have defined the priority queue we have to create a method that fil
 
 ### Improvement:
 
-Notice that you can change the parameters of the Z priority in any time, so you can achieve to do things like this one:
+Notice that you can change the parameters of the Z priority in any time, so you can achieve things like this one:
 
 || INTRODUIR GIF DEL EFECTE DE LA CASA||
+
+## Camera Culling
+
+Camera Culling is a method used to optimize our games and the idea it's easy to understand. Now, your games is constantly rendering all the entities and the whole map, even if you are seeing it or not. The point here is that we don't want to render all these parts of the map and all these entities that are not being seen through the camera. This is the Camera Culling, a filter in the render funtion that says if an object can be rendered or not.
+
+### How can you do an easy Camera Culling effect?
+
+
