@@ -1,0 +1,78 @@
+<!-- Config file for the game-->
+
+<config>
+  <app framerate_cap="30" Cap="true">
+    <title>Ninja's Path</title>
+    <organization>UPC</organization>
+  </app>
+  
+  <renderer>
+    <vsync value="false"/>
+    <camera camera_x="0" camera_y="0"/>
+  </renderer>
+
+  <window>
+    <resolution default="false" width="1500" height="1000" scale="1"/>
+    <fullscreen value="false"/>
+    <borderless value="false"/>
+    <resizable value="false"/>
+    <fullscreen_window value="false"/>
+  </window>
+
+  <audio>
+    <music_volume value="64"/>
+    <fx_volume value="128"/>
+  </audio>
+
+  <gui>
+    <atlas file="gui/Button.png"/>
+  </gui>
+	
+  <entity>
+    <player>
+      <position pos_x="100" pos_y="215"/>
+      <gravity  value="0"/>
+      <acceleration value="100"/>
+      <accel_counter value="10"/>
+      <velocity value="1000"/>
+      <slide_counter value="0"/>
+      <jump jump_height="300" jump_vel="1000"/>
+      <jump_bool value="false"/>
+      <fall_bool value="false"/>
+      <alive velue="true"/>
+    </player>
+    
+    <zombie>
+      <idle_speed value="250"/>
+      <path_speed value="200"/>
+      <scale value="-0.5"/>
+      <speed speed_x="0" speed_y="500"/>
+      <right value="true"/>
+      <left value="false"/>
+      <going value="false"/>
+      <go_x value="false"/>
+      <alive value="true"/>
+      <dead value="false"/>
+    </zombie>
+   
+    <plane>
+      <idle_speed value="100"/>
+      <path_speed speed_x="400" speed_y="400"/>
+      <scale value="-0.4"/>
+      <speed speed_x="0" speed_y="500"/>
+      <right value="true"/>
+      <left value="false"/>
+      <going value="false"/>
+      <go_x value="false"/>
+      <go_y value="false"/>
+      <goback value="false"/>
+      <alive value="true"/>
+      <dead value="false"/>
+    </plane>
+  </entity>
+
+  <map>
+    <folder>maps/</folder>
+  </map>
+
+</config>
