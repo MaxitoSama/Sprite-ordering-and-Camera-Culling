@@ -73,7 +73,7 @@ Now that you have defined the priority queue we have to create a method that fil
 Notice that you can change the parameters of the Z priority in any time, so you can achieve things like this one:
 
 <p align="center"> 
-<img src="https://i.imgur.com/yTy9nsD.gif" width="400">
+<img src="https://i.imgur.com/yTy9nsD.gifv" width="400">
 </p>
 
 
