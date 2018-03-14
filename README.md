@@ -73,7 +73,7 @@ Now that you have defined the priority queue we have to create a method that fil
 Notice that you can change the parameters of the Z priority in any time, so you can achieve things like this one:
 
 <p align="center"> 
-<img src="https://i.imgur.com/yTy9nsD.gifv" width="400">
+<img src="https://i.imgur.com/yTy9nsD.gif" width="400">
 </p>
 
 
@@ -141,8 +141,8 @@ Here is the question: Do I have to calculate the collision between two objects t
 The first solution is dividing our map in small cells or rectangles and then calculate only the collisions of the entities that are in the same rectangle. This is known as Space partitioning. However, there is a probleme with that method. If you have a lot of entities in the same rect or buch of rects then you will have to calculate the collision between big number of entities again. 
 
 <p align="center"> 
-<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/spatial%20partitioning_1.png" width="200">
-<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/spatial%20partitioning_2.png" width="200">
+<img src="https://i.imgur.com/xDoiKqS.png" width="200">
+<img src="https://i.imgur.com/GuWlR7t.png" width="200">
 </p>
 
 In order to solve that problem, you will have to create the Quadtree class.
@@ -154,27 +154,27 @@ A Quadtree is an other type of space partitioning, but instead of having an stat
 * First you have a number of entities in your map, lets say 3. This number will be the maximum number of entities that can be inside a rect.
 
 <p align="center"> 
-<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/QuadTree_1.png" width="480">
-<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/QuadTree_1_1.png" width="300">
+<img src="https://i.imgur.com/Wl1UwNZ.png" width="480">
+<img src="https://i.imgur.com/YOJtOpk.png" width="300">
 </p>
 
 * If you insert another entity in the map, then the quadtree starts its work. It will divide your initial rect in 4 smaller rects. Now, the game will only calculate the collisions of the entities that are in the same new rects. 
 
 <p align="center"> 
-<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/QuadTree_2.png" width="480">
-<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/QuadTree_1_2.png" width="300">
+<img src="https://i.imgur.com/hCR9ECY.png" width="480">
+<img src="https://i.imgur.com/D3Lwwsq.png" width="300">
 </p>
 
 * If you add more and more entities, the quadtree will be dividing more and more each rect in 4 smaller rects.
 
 <p align="center"> 
-<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/QuadTree_3.png" width="480">
-<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/QuadTree_1_3.png" width="300">
+<img src="https://i.imgur.com/HRHnPdM.png" width="480">
+<img src="https://i.imgur.com/D0SJmiA.png" width="300">
 </p>
 
 <p align="center"> 
-<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/QuadTree_4.png" width="450">
-<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/QuadTree_1_4.png" width="300">
+<img src="https://i.imgur.com/DFt6N1O.png" width="450">
+<img src="https://i.imgur.com/MDq0r4t.png" width="300">
 </p>
 
 As you can see, we are generating smaller regions in order to reduce the amount of collisions checkings. This is a gif that shows how it works in real time.
