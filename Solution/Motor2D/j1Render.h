@@ -8,6 +8,7 @@
 #include "p2Point.h"
 #include "j1Module.h"
 #include "Quadtree.h"
+#include "j1PerfTimer.h"
 
 using namespace std;
 
@@ -103,6 +104,8 @@ public:
 
 	//Priority queue using the new template
 	priority_queue <ObjectToPrint*,vector<ObjectToPrint*>,OrderCrit> SpriteOrderer;
+
+	j1PerfTimer timer;
 
 private:
 

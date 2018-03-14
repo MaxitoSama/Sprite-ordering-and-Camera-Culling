@@ -91,19 +91,18 @@ int Quadtree::getIndex(const SDL_Rect& r)
 	return index;
 }
 
+//TODO 3: Create the Insert() function.
 bool Quadtree::insert(ObjectToPrint* obj)
 {
-	////The objects is empty so we don't add it
-	//if (obj == nullptr)
-	//{
-	//	return false;
-	//}
+	if (obj == nullptr)
+	{
+		return false;
+	}
 
-	////The object it's not inside the Rectangle Space
-	//if (CheckBoundaries(obj->rect) == false)
-	//{
-	//	return false;
-	//}
+	if (CheckBoundaries(obj->rect) == false)
+	{
+		return false;
+	}
 
 	if (Children[0] != nullptr)
 	{
@@ -138,12 +137,13 @@ bool Quadtree::insert(ObjectToPrint* obj)
 	return true;	
 }
 
-vector<ObjectToPrint*> Quadtree::FillCollisionList(vector<ObjectToPrint*> &ObjList, const SDL_Rect& camera)
+//TODO 3: Create the FillCollisionVector() function.
+vector<ObjectToPrint*> Quadtree::FillCollisionVector(vector<ObjectToPrint*> &ObjList, const SDL_Rect& camera)
 {
 	int index = getIndex(camera);
 	if (index != -1 && Children[0] != nullptr)
 	{
-		Children[index]->FillCollisionList(ObjList, camera);
+		Children[index]->FillCollisionVector(ObjList, camera);
 	}
 
 	for (list<ObjectToPrint*>::iterator item = Objects.begin(); item != Objects.end(); item++)

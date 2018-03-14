@@ -6,6 +6,7 @@
 #include "j1Input.h"
 #include "j1Map.h"
 
+
 #define VSYNC true
 
 j1Render::j1Render() : j1Module()
@@ -91,6 +92,8 @@ bool j1Render::Update(float dt)
 {
 	BROFILER_CATEGORY("Update Render", Profiler::Color::Maroon);
 
+	timer.Start();
+
 	if (App->input->GetKey(SDL_SCANCODE_F1)==KEY_DOWN)
 		Optimize = !Optimize;
 
@@ -102,17 +105,18 @@ bool j1Render::Update(float dt)
 		CullingQuadtree->insert(Sprites[i]);
 	}
 	
-	CullingQuadtree->FillCollisionList(PossibleCollision, camera_aux);
+	CullingQuadtree->FillCollisionVector(PossibleCollision, camera_aux);
 
 	FillQueuefromVec(PossibleCollision);
 	
 	BlitFromQueue(SpriteOrderer);
 
 	CullingQuadtree->Clear();
+	LOG("time %f", timer.ReadMs());
 	
 	Sprites.clear();
 
-	LOG("%d %d", camera.x, camera.y);
+	
 	return true;
 }
 
@@ -305,6 +309,11 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	return ret;
 }
 
+
+
+//--------------------------------Camera Culling and Sprite Ordering--------------------------
+
+
 //This fucntions create a new element for the Queue with the info of the class ObjectToPrint
 void j1Render::FillQueue(uint Priority,SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale, float speed, double angle, int pivot_x, int pivot_y)
 {
@@ -322,6 +331,8 @@ void j1Render::FillQueue(uint Priority,SDL_Texture* texture, int x, int y, const
 	{
 		SDL_QueryTexture(texture, NULL, NULL, &aux_rect.w, &aux_rect.h);
 	}
+
+	//TODO 2: Create a method that check wha tto put inside the queue and what not.
 
 	if (Optimize)
 	{
@@ -414,6 +425,7 @@ bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*, vector<ObjectToPrint
 	return ret;
 }
 
+//Check the collision with the camera.
 bool j1Render::CameraCollision(const SDL_Rect& rect)const
 {
 	if ((rect.x < -camera.x + camera.w && rect.x + rect.w > -camera.x) || (rect.x < -camera.x + camera.w  && rect.x + rect.w > -camera.x))
@@ -426,7 +438,7 @@ bool j1Render::CameraCollision(const SDL_Rect& rect)const
 	return false;
 }
 
-
+//Fill the vector with the entities that will be inserted in the quadtree
 void j1Render::FillVec(uint Priority, SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale, float speed, double angle, int pivot_x, int pivot_y)
 {
 	SDL_Rect aux_rect;
@@ -448,6 +460,7 @@ void j1Render::FillVec(uint Priority, SDL_Texture* texture, int x, int y, const 
 	Sprites.push_back(auxObject);
 }
 
+//Fills the queue from the vector of the quadtree
 void j1Render::FillQueuefromVec(vector<ObjectToPrint*> sprites)
 {
 	for(int i=0;i<sprites.size();i++)

@@ -235,8 +235,8 @@ void j1App::FinishUpdate()
 	}
 
 	static char title[256];
-	sprintf_s(title, 256, "Sprite Order and Camera Culling || Queue Elements: %d  Blits per Frame: %d || Collisions_1: %d  Collisions_2: %d "
-		,render->SpriteOrderer.size(), BlitsPerFrame, colliders->numberCollisions_1, colliders->numberCollisions_2);
+	sprintf_s(title, 256, "Sprite Order and Camera Culling || Queue Elements: %d  Blits per Frame: %d ms:%f "
+		,render->SpriteOrderer.size(), BlitsPerFrame,render->timer.ReadMs());
 	App->win->SetTitle(title);
 
 	uint32 framerate = 1000 / framerate_cap;

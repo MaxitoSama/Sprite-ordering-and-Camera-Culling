@@ -52,7 +52,7 @@ public:
 	bool insert(ObjectToPrint* Object);
 	bool CheckBoundaries(const SDL_Rect& r);
 
-	vector<ObjectToPrint*> FillCollisionList(vector<ObjectToPrint*> &ObjList, const SDL_Rect& camera);
+	vector<ObjectToPrint*> FillCollisionVector(vector<ObjectToPrint*> &ObjList, const SDL_Rect& camera);
 
 public:
 	
