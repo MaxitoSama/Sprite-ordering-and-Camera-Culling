@@ -25,7 +25,7 @@ Well, in order to explain that first you have to know how a game randers the ima
 The order of the images in the screen will appear in the inverse order that we call the our function that prints or render the image. This means that the first image we have sent to print will be the first image to be rendered, so it will be in the background. The secon one will be rendered next to the first, so it will appear above the first one and the same with the third, forth...
 
 <p align="center"> 
-<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/Sin%20t%C3%ADtulo-1.png" width="800">
+<img src="https://imgur.com/tbexthd" width="800">
 </p>
 
 ### How we can control this sprite ordering? 
