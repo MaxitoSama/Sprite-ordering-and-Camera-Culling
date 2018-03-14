@@ -15,14 +15,14 @@ The first question that you maybe have in your mind is "Why I need that? What's 
 * If I have two entities, one in the right side of my map and the other on the opposite side, do you want to check if they are going to colide? What if you have thousands of entities?
 * This is the most important question, Do you want that your game (or program) runs faster?
 
-Now you that you know that it's always important to optimize your code, let me give you a guide focus on how to improve your code on these three topics.
+Now that you know that it's always important to optimize your code, let me give you a guide focused on how to improve your code on these three topics.
 
 ## Sprite Ordering
 
-I've said before that it's important to have a god way to manage the order of the sprites, but what I mean with sprite ordering? 
-Well, in order to explain that first you have to know how a game randers the image.
+I've said before that it's important to have a good way to manage the ordering of sprites, but what I mean with sprite ordering? 
+Well, in order to explain that, first you have to know how a game randers the image.
 
-The order of the images in the screen will appear in the inverse order that we call the our function that prints or render the image. This means that the first image we have sent to print will be the first image to be rendered, so it will be in the background. The secon one will be rendered next to the first, so it will appear above the first one and the same with the third, forth...
+The order of the images in the screen will appear in the inverse order that we call our function that prints or render the image. This means that the first image we have sent to print will be the first image to be rendered, so it will be in the background. The second one will be rendered next to the first, so it will appear above the first one and the same with the third, forth...
 
 <p align="center"> 
 <img src="https://i.imgur.com/tbexthd.png" width="800">
