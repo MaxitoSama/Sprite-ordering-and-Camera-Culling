@@ -180,7 +180,7 @@ A Quadtree is an other type of space partitioning, but instead of having an stat
 As you can see, we are generating smaller regions in order to reduce the amount of collisions checkings. This is a gif that shows how it works in real time.
 
 <p align="center"> 
-<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/Quadtree%20gif.gif" width="300">
+<img src="https://i.imgur.com/SCJ2mpI.gif" width="300">
 </p>
 
 ### Quadtree in C++
@@ -236,7 +236,7 @@ If we want to implement our Quadtree class in a camera cullin method, what we ha
 
 This video shows how many times we reduce the amount of collisions checkings:
 
-[![Quadtree video](https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/maxresdefault.jpg )](https://www.youtube.com/embed/TJzq_kjtGTc)
+[![Quadtree video](https://i.imgur.com/a3oCmr8.jpg )](https://www.youtube.com/embed/TJzq_kjtGTc)
 
 ---
 
