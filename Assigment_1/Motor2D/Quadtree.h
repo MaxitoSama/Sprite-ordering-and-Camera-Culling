@@ -1,7 +1,8 @@
 #ifndef __QUADTREE_H__
 #define __QUADTREE_H__ 
 
-#define MAX_OBJECTS 10
+#define MAX_OBJECTS 5
+#define MAX_LEVELS 5
 
 #include "SDL/include/SDL_rect.h"
 #include <vector>
@@ -24,9 +25,11 @@ public:
 		{
 			Children[i] = nullptr;
 		}
+
+		Level = 0;
 	}
 
-	Quadtree(SDL_Rect rect)
+	Quadtree(SDL_Rect rect, int level)
 	{
 		Space = rect;
 
@@ -34,6 +37,7 @@ public:
 		{
 			Children[i] = nullptr;
 		}
+		Level = level;
 	}
 
 	~Quadtree()
@@ -43,24 +47,23 @@ public:
 
 	void Clear();
 	void Split();
+	int getIndex(const SDL_Rect& r);
 	
-	bool insert(Collider* Object);
+	bool insert(ObjectToPrint* Object);
 	bool CheckBoundaries(const SDL_Rect& r);
 
-	list<Collider*> FillCollisionList(list<Collider*> &CollidersList,Collider* collider);
+	vector<ObjectToPrint*> FillCollisionList(vector<ObjectToPrint*> &ObjList, const SDL_Rect& camera);
 
 public:
 	
-	SDL_Rect			Space;
-	
-	list<Collider*>		Objects;
+	int Level;
 
-	array<Quadtree*,4>	Children;
+	SDL_Rect				Space;
+	
+	list<ObjectToPrint*>	Objects;
+
+	array<Quadtree*,4>		Children;
 
 };
-
-
-
-
 #endif // !__QUADTREE_H__
 

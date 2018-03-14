@@ -29,8 +29,6 @@ bool j1Map::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-
-
 //draw the map and background
 void j1Map::Draw()
 {
@@ -66,6 +64,7 @@ void j1Map::Draw()
 					QueueRects.push_back(new SDL_Rect(tileset->GetTileRect(tile_id)));
 
 					App->render->FillQueue(0,tileset->texture, pos.x, pos.y, QueueRects[tile_indx]);
+					//App->render->FillVec(0, tileset->texture, pos.x, pos.y, QueueRects[tile_indx]);
 					tile_indx++;
 				}
 			}

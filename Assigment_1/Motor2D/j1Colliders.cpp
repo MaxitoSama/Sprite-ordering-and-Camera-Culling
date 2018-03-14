@@ -35,11 +35,8 @@ bool j1Colliders::Awake()
 
 bool j1Colliders::Start()
 {
-
 	int map_width = App->map->data.width*App->map->data.tile_width;
 	int map_height = App->map->data.height*App->map->data.tile_height;
-
-	ColQuadtree=new Quadtree({ 0,0,map_width,map_height });
 
 	return true;
 }
@@ -69,8 +66,6 @@ bool j1Colliders::Update(float dt)
 	Collider* c1=nullptr;
 	Collider* c2=nullptr;
 
-	ColQuadtree->Clear();
-
 	if (App->entities->Slowmo)
 	{
 		Slowdt = dt / 4;
@@ -79,8 +74,6 @@ bool j1Colliders::Update(float dt)
 	{
 		Slowdt = dt;
 	}
-
-	numberCollisions_1 = 0;
 
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
@@ -139,11 +132,8 @@ bool j1Colliders::Update(float dt)
 				}
 			}
 
-			numberCollisions_1++;
 		}
 	}
-
-	CollisionQuadtree();
 
 	DebugDraw();
 
@@ -264,60 +254,6 @@ bool j1Colliders::EraseCollider(Collider* collider)
 	}
 
 	return false;
-}
-
-void j1Colliders::CollisionQuadtree()
-{
-	Collider* col=nullptr;
-	numberCollisions_2 = 0;
-
-	for (int i = 0; i < MAX_COLLIDERS; i++)
-	{
-		if (colliders[i] == nullptr || colliders[i]->type == COLLIDER_NONE)
-		{
-			continue;
-		}
-
-		ColQuadtree->insert(colliders[i]);
-	}
-
-	for (int i = 0; i < MAX_COLLIDERS; i++)
-	{
-		if (colliders[i] == nullptr || colliders[i]->type == COLLIDER_NONE)
-		{
-			continue;
-		}
-
-		col = colliders[i];
-
-		ColQuadtree->FillCollisionList(ListToCollide, col);
-
-		for (list<Collider*>::iterator item = ListToCollide.begin(); item != ListToCollide.end(); item++)
-		{
-			if (col != *item)
-			{
-				if (App->entities->entities[i] != nullptr)
-				{
-					if (*item == App->entities->entities[i]->GetCollider() && col->type == COLLIDER_FLOOR && (*item)->type == COLLIDER_ENEMY && col->CheckFutureFallColision((*item)->rect, distance, Slowdt, App->entities->entities[i]->speed.y) == true)
-					{
-						App->entities->entities[i]->original_pos.y -= distance;
-					}
-					if (*item == App->entities->entities[i]->GetCollider() && col->type == COLLIDER_PLAYER && (*item)->type == COLLIDER_WALL && (*item)->CheckFutureCrashColision(col->rect, distance, App->entities->player->speed.x) == true)
-					{
-						App->entities->player->original_pos.x -= distance;
-					}
-				}
-			}
-			numberCollisions_2++;
-		}
-
-		/*for (list<Collider*>::iterator item = ListToCollide.begin(); item != ListToCollide.end(); item++)
-		{
-			RELEASE(*item);
-		}*/
-
-		ListToCollide.clear();
-	}
 }
 
 // -----------------------------------------------------

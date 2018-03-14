@@ -58,12 +58,12 @@ void Entity::Draw(SDL_Texture* sprites, float direction, float dt)
 	if (animation != nullptr)
 	{		
 		//App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame(dt)),0.3f);
-		App->render->FillQueue(priority, sprites, position.x, position.y, &(animation->GetCurrentFrame(dt)), 0.3f);
+		App->render->FillVec(priority, sprites, position.x, position.y, &(animation->GetCurrentFrame(dt)), 0.3f);
 	}
 	
 	if (type == HOUSE)
 	{
-		App->render->FillQueue(priority,sprites, position.x, position.y,NULL, scale);
+		App->render->FillVec(priority,sprites, position.x, position.y,NULL, scale);
 	}
 }
 

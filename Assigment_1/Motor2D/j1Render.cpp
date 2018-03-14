@@ -71,6 +71,11 @@ bool j1Render::Start()
 
 	Optimize = true;
 
+	int height = App->map->data.height * 32;
+	int width = App->map->data.width * 32;
+
+	CullingQuadtree = new Quadtree({ 0,0,width,height},0);
+
 	return true;
 }
 
@@ -89,8 +94,25 @@ bool j1Render::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F1)==KEY_DOWN)
 		Optimize = !Optimize;
 
-	BlitFromQueue(SpriteOrderer);
+	vector<ObjectToPrint*> PossibleCollision;
+	SDL_Rect camera_aux = { -camera.x,-camera.y,camera.w,camera.h };
+
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		CullingQuadtree->insert(Sprites[i]);
+	}
 	
+	CullingQuadtree->FillCollisionList(PossibleCollision, camera_aux);
+
+	FillQueuefromVec(PossibleCollision);
+	
+	BlitFromQueue(SpriteOrderer);
+
+	CullingQuadtree->Clear();
+	
+	Sprites.clear();
+
+	LOG("%d %d", camera.x, camera.y);
 	return true;
 }
 
@@ -305,17 +327,16 @@ void j1Render::FillQueue(uint Priority,SDL_Texture* texture, int x, int y, const
 	{
 		if (CameraCollision(aux_rect))
 		{
-			ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y);
+			ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y,aux_rect);
 			SpriteOrderer.push(auxObject);
 		}
 	}
 	else
 	{
-		ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y);
+		ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y, aux_rect);
 		SpriteOrderer.push(auxObject);
 	}
 }
-
 
 //This function prints all the elements of the queue
 bool j1Render::BlitFromQueue(priority_queue<ObjectToPrint*, vector<ObjectToPrint*>, OrderCrit>& Queue)const
@@ -403,4 +424,37 @@ bool j1Render::CameraCollision(const SDL_Rect& rect)const
 		}
 	}
 	return false;
+}
+
+
+void j1Render::FillVec(uint Priority, SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale, float speed, double angle, int pivot_x, int pivot_y)
+{
+	SDL_Rect aux_rect;
+
+	aux_rect.x = x;
+	aux_rect.y = y;
+
+	if (section != NULL)
+	{
+		aux_rect.w = section->w;
+		aux_rect.h = section->h;
+	}
+	else
+	{
+		SDL_QueryTexture(texture, NULL, NULL, &aux_rect.w, &aux_rect.h);
+	}
+
+	ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y, aux_rect);
+	Sprites.push_back(auxObject);
+}
+
+void j1Render::FillQueuefromVec(vector<ObjectToPrint*> sprites)
+{
+	for(int i=0;i<sprites.size();i++)
+	{
+		if (CameraCollision(sprites[i]->rect))
+		{
+			SpriteOrderer.push(sprites[i]);
+		}
+	}
 }

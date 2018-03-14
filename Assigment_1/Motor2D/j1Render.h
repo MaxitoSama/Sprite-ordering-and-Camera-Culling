@@ -15,8 +15,8 @@ class ObjectToPrint
 {
 public:
 
-	ObjectToPrint(uint priority,SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale, float speed, double angle, int pivot_x, int pivot_y) :
-		priority(priority),texture(texture), x(x), y(y), section(section), scale(scale), speed(speed),angle(angle),pivot_x(pivot_x), pivot_y(pivot_y){}
+	ObjectToPrint(uint priority,SDL_Texture* texture, int x, int y, const SDL_Rect* section, float scale, float speed, double angle, int pivot_x, int pivot_y, SDL_Rect rect) :
+		priority(priority),texture(texture), x(x), y(y), section(section), scale(scale), speed(speed),angle(angle),pivot_x(pivot_x), pivot_y(pivot_y),rect(rect){}
 
 	uint GetPriority()const
 	{
@@ -28,6 +28,7 @@ public:
 	int					x;
 	int					y;
 	const SDL_Rect*		section;
+	SDL_Rect			rect;
 	float				scale;
 	float				speed;
 	double				angle;
@@ -84,6 +85,8 @@ public:
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool use_camera = true) const;
 	bool CameraCollision(const SDL_Rect& rect)const;
 
+	void FillVec(uint Priority, SDL_Texture* texture, int x, int y, const SDL_Rect* section = NULL, float scale = 1.0f, float speed = 1.0f, double angle = 0, int pivot_x = INT_MAX, int pivot_y = INT_MAX);
+	void j1Render::FillQueuefromVec(vector<ObjectToPrint*> sprites);
 
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
@@ -96,6 +99,8 @@ public:
 
 	SDL_Color		background;
 
+	vector<ObjectToPrint*> Sprites;
+
 	//Priority queue using the new template
 	priority_queue <ObjectToPrint*,vector<ObjectToPrint*>,OrderCrit> SpriteOrderer;
 
@@ -103,6 +108,8 @@ private:
 
 	bool	Optimize;
 	int		reduce_camera;
+
+	Quadtree* CullingQuadtree;
 };
 
 #endif // __j1RENDER_H__

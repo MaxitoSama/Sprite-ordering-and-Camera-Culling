@@ -7,7 +7,7 @@
 void Quadtree::Clear()
 {
 	//First we have to clear all the objects of the node
-	list<Collider*>::iterator item = Objects.begin();
+	list<ObjectToPrint*>::iterator item = Objects.begin();
 
 	for (item;item!=Objects.end();item++)
 	{
@@ -37,96 +37,122 @@ void Quadtree::Split()
 
 	x = this->Space.x;
 	y = this->Space.y;
-	w = (this->Space.w / 2);
-	h = (this->Space.h / 2);
+	w = (int)(this->Space.w / 2);
+	h = (int)(this->Space.h / 2);
 
-	Children[0] = new Quadtree({ x,	y, w, h });
-	Children[1] = new Quadtree({ x + w, y, w, h });
-	Children[2] = new Quadtree({ x, y + h, w, h });
-	Children[3] = new Quadtree({ x + w, y + h, w, h });
+	Children[0] = new Quadtree({ x,	y, w, h },Level+1);
+	Children[1] = new Quadtree({ x + w, y, w, h },Level+1);
+	Children[2] = new Quadtree({ x, y + h, w, h }, Level + 1);
+	Children[3] = new Quadtree({ x + w, y + h, w, h }, Level + 1);
 
 }
 
-bool Quadtree::insert(Collider* collider)
+// Index Quadrant
+/*
+---------
+| 0 | 1 |
+---------
+| 2	| 3 |
+---------
+*/
+
+int Quadtree::getIndex(const SDL_Rect& r)
 {
-	//The objects is empty so we don't add it
-	if (collider == nullptr)
-	{
-		return false;
-	}
+	int index = -1;
+	float MidWeight = Space.x+(Space.w/2);
+	float MidHeight = Space.y+(Space.h/2);
 
-	//The object it's not inside the Rectangle Space
-	if (CheckBoundaries(collider->rect) == false)
-	{
-		return false;
-	}
+	bool TopChildren = (r.y < MidHeight && r.y+r.h<MidHeight);
+	bool BottomChildren = (r.y > MidHeight);
 
-	//----------------------------------------------------------------------
-	//Canviar, ara mateix no esborra els objectes d'un paret al crear fills!
-	//tampoc mira si un parent te fills primer!
-
-	if (Children[0] != nullptr)
+	if (r.x < MidWeight && r.x + r.w < MidWeight)
 	{
-		for (int i = 0; i < Children.size(); i++)
+		if (TopChildren)
 		{
-			Children[i]->insert(collider);
+			index = 0;
+		}
+		else
+		{
+			index = 2;
+		}
+	}
+	else if (r.x > MidWeight)
+	{
+		if (TopChildren)
+		{
+			index = 1;
+		}
+		else
+		{
+			index = 3;
 		}
 	}
 
-	// fins aqui tot be!
-	
-	Objects.push_back(collider);
-	//If it's inside the Space, check if we have to split or not
-	if (Objects.size() > MAX_OBJECTS)
+	return index;
+}
+
+bool Quadtree::insert(ObjectToPrint* obj)
+{
+	////The objects is empty so we don't add it
+	//if (obj == nullptr)
+	//{
+	//	return false;
+	//}
+
+	////The object it's not inside the Rectangle Space
+	//if (CheckBoundaries(obj->rect) == false)
+	//{
+	//	return false;
+	//}
+
+	if (Children[0] != nullptr)
+	{
+		int index = getIndex(obj->rect);
+		if (index = !- 1)
+		{
+			Children[index]->insert(obj);
+		}
+		return true;
+	}
+
+	Objects.push_back(obj);
+
+	if (Objects.size() > MAX_OBJECTS && Level<MAX_LEVELS)
 	{
 		if (Children[0] == nullptr)
 		{
 			Split();
 		}
 
-		for (list<Collider*>::iterator item = Objects.begin(); item != Objects.end(); item++)
+		for (list<ObjectToPrint*>::iterator item = Objects.begin(); item != Objects.end(); item++)
 		{
-			for (int i = 0; i < Children.size(); i++)
+			int index = getIndex((*item)->rect);
+			if (index != -1)
 			{
-				Children[i]->insert(*item);
+				Children[index]->insert(*item);
+				Objects.remove(*item);
 			}
-			Objects.remove(*item);
-		}		
+		}
 	}
 
 	return true;	
 }
 
-list<Collider*> Quadtree::FillCollisionList(list<Collider*> &CollidersList, Collider* collider)
+vector<ObjectToPrint*> Quadtree::FillCollisionList(vector<ObjectToPrint*> &ObjList, const SDL_Rect& camera)
 {
-	bool ret = false;
-
-	for (list<Collider*>::iterator item = Objects.begin(); item != Objects.end(); item++)
+	int index = getIndex(camera);
+	if (index != -1 && Children[0] != nullptr)
 	{
-		if (collider == *item)
-		{
-			ret = true;
-			break;
-		}
+		Children[index]->FillCollisionList(ObjList, camera);
 	}
 
-	if (ret == true)
+	for (list<ObjectToPrint*>::iterator item = Objects.begin(); item != Objects.end(); item++)
 	{
-		for (list<Collider*>::iterator item = Objects.begin(); item != Objects.end(); item++)
-		{
-			CollidersList.push_back(*item);
-		}
+		ObjList.push_back(*item);
 	}
-		
-	if (Children[0] != nullptr)
-	{
-		for (int i = 0; i < Children.size(); i++)
-		{
-			Children[i]->FillCollisionList(CollidersList, collider);
-		}
-	}
+
 	
-	return CollidersList;
+	return ObjList;
 }
 
 bool Quadtree::CheckBoundaries(const SDL_Rect& r)
