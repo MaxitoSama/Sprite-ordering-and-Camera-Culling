@@ -126,8 +126,8 @@ bool j1Render::CameraCollision(const SDL_Rect& rect)const
 Here you have two gifs that show how works this camera culling. On the left is the vision of the camera and what the player will see. On the right you can see how works the camera culling.
 
 <p align="center"> 
-<img src="https://imgur.com/LG5gZlJ" width="400">
-<img src="https://imgur.com/bGI8EMa" width="325">
+<img src="https://i.imgur.com/LG5gZlJ.gif" width="400">
+<img src="https://i.imgur.com/bGI8EMa.gif" width="325">
 </p>
 
 ## Quadtrees
