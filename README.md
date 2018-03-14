@@ -73,7 +73,7 @@ Now that you have defined the priority queue we have to create a method that fil
 Notice that you can change the parameters of the Z priority in any time, so you can achieve things like this one:
 
 <p align="center"> 
-<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/Sprite%20Order.gif" width="400">
+<img src="https://imgur.com/yTy9nsD" width="400">
 </p>
 
 
@@ -82,7 +82,7 @@ Notice that you can change the parameters of the Z priority in any time, so you 
 Camera Culling is a method used to optimize our games and the idea it's easy to understand. Now, your games is constantly rendering all the entities and the whole map, even if you are seeing it or not. The point here is that we don't want to render all these parts of the map and all these entities that are not being seen through the camera. This is the Camera Culling, a filter in the render funtion that says if an object can be rendered or not.
 
 <p align="center"> 
-<img src="https://github.com/MaxitoSama/Sprite-ordering-and-Camera-Culling/blob/master/Assigment_1/Game/wiki/Camera%20Culling.png" width="600">
+<img src="https://i.imgur.com/5iW7ECc.png" width="600">
 </p>
 
 ### How can you do an easy Camera Culling effect?
