@@ -52,7 +52,12 @@ bool j1Scene::Start()
 	limit_y = map_height - win_height;
 	limit_x = map_width - win_width / 2;
 
-	App->entities->AddEnemy(HOUSE, 225, 500);
+	App->entities->AddEnemy(HOUSE, 220, 505);
+	/*App->entities->AddEnemy(HOUSE, 0, 0);
+	App->entities->AddEnemy(HOUSE, 2, 0);
+	App->entities->AddEnemy(HOUSE, 10, 0);
+	App->entities->AddEnemy(HOUSE, 100, 0);
+	App->entities->AddEnemy(HOUSE, 123, 0);*/
 	App->entities->AddEnemy(HOUSE, 1000, 1000);
 	App->entities->AddEnemy(HOUSE, 1000, 0);
 
@@ -86,17 +91,17 @@ bool j1Scene::Update(float dt)
 		}
 	}	
 
-	if (App->entities->player->original_pos.x > App->render->camera.x/2 /*&& App->entities->player->original_pos.x <= limit_x*/)
-	{
-		//App->render->camera.x = App->entities->player->win_width / 2 - App->entities->player->original_pos.x;
+	//if (App->entities->player->original_pos.x > App->render->camera.x/2 /*&& App->entities->player->original_pos.x <= limit_x*/)
+	//{
+	//	//App->render->camera.x = App->entities->player->win_width / 2 - App->entities->player->original_pos.x;
 		App->render->camera.x = -(App->entities->player->position.x + App->entities->player->idle_right.frames[0].w / 2) + App->render->camera.w / 2;
-	}
-	
-	
-	if (App->entities->player->original_pos.y > -App->render->camera.y / 2 && App->entities->player->original_pos.x > App->render->camera.x / 2)
-	{
+	//}
+	//
+	//
+	//if (App->entities->player->original_pos.y > -App->render->camera.y / 2 && App->entities->player->original_pos.x > App->render->camera.x / 2)
+	//{
 		App->render->camera.y = -(App->entities->player->position.y + App->entities->player->idle_right.frames[0].h / 2) + App->render->camera.h;
-	}
+	//}
 	
 
 	int order = 0;

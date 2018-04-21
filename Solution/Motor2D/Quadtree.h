@@ -1,8 +1,8 @@
 #ifndef __QUADTREE_H__
 #define __QUADTREE_H__ 
 
-#define MAX_OBJECTS 5
-#define MAX_LEVELS 5
+#define MAX_OBJECTS 1
+#define MAX_LEVELS 10
 
 #include "SDL/include/SDL_rect.h"
 #include <vector>
@@ -47,6 +47,7 @@ public:
 
 	void Clear();
 	void Split();
+	void BlitSection();
 	int getIndex(const SDL_Rect& r);
 	
 	bool insert(ObjectToPrint* Object);

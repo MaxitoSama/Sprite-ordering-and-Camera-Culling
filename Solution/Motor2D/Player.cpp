@@ -94,7 +94,7 @@ Player::Player(int x, int y, ENTITY_TYPES type) : Entity(x, y,type)
 	lives = 3;
 
 	animation = &idle_right;
-	scale = 0.3f;
+	scale = 0.2f;
 	initial_pos.x = original_pos.x;
 	Curr_map = 1;
 }
@@ -170,7 +170,7 @@ bool Player::Update(float dt)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
 		{
-			if (original_pos.x >= 0)
+			if (original_pos.x >= -1000)
 			{
 				speed.x = -(velocity)*dt;
 				original_pos.x += speed.x;
@@ -217,7 +217,7 @@ bool Player::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
 	{
-		if (original_pos.x >= 0)
+		if (original_pos.x >= -1000)
 		{
 			speed.y = velocity*dt;
 			original_pos.y += speed.y;
@@ -277,6 +277,9 @@ bool Player::Update(float dt)
 	//Player Colliders Position--------------------------------
 	position = original_pos;
 
+	LOG("position %f and %f", original_pos.x, original_pos.y);
+
+	LOG("collider %f and %f", position.x, position.y);
 	return true;
 }
 

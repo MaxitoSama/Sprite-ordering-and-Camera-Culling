@@ -1,4 +1,5 @@
 #include "Quadtree.h"
+#include "p2Log.h"
 #include "j1App.h"
 #include "j1Render.h"
 #include "j1Colliders.h"
@@ -71,7 +72,7 @@ int Quadtree::getIndex(const SDL_Rect& r)
 		{
 			index = 0;
 		}
-		else
+		else if(BottomChildren)
 		{
 			index = 2;
 		}
@@ -82,7 +83,7 @@ int Quadtree::getIndex(const SDL_Rect& r)
 		{
 			index = 1;
 		}
-		else
+		else if(BottomChildren)
 		{
 			index = 3;
 		}
@@ -107,7 +108,7 @@ bool Quadtree::insert(ObjectToPrint* obj)
 	if (Children[0] != nullptr)
 	{
 		int index = getIndex(obj->rect);
-		if (index = !- 1)
+		if (index != - 1)
 		{
 			Children[index]->insert(obj);
 		}
@@ -134,30 +135,42 @@ bool Quadtree::insert(ObjectToPrint* obj)
 		}
 	}
 
+	//LOG("level: %d", Level);
+
 	return true;	
 }
 
 //TODO 3: Create the FillCollisionVector() function.
 vector<ObjectToPrint*> Quadtree::FillCollisionVector(vector<ObjectToPrint*> &ObjList, const SDL_Rect& camera)
 {
-	int index = getIndex(camera);
-	if (index != -1 && Children[0] != nullptr)
+	if (Children[0] != nullptr)
 	{
-		Children[index]->FillCollisionVector(ObjList, camera);
-	}
+		int index = getIndex(camera);
 
+		if (index != -1)
+		{
+			Children[index]->FillCollisionVector(ObjList, camera);
+		}
+		else
+		{
+			for (int i = 0; i < 4; ++i)
+			{
+				Children[i]->FillCollisionVector(ObjList,camera);
+			}
+		}
+	}
+	
 	for (list<ObjectToPrint*>::iterator item = Objects.begin(); item != Objects.end(); item++)
 	{
 		ObjList.push_back(*item);
 	}
 
-	
 	return ObjList;
 }
 
 bool Quadtree::CheckBoundaries(const SDL_Rect& r)
 {
-	if ((Space.x < r.x + r.w && Space.x + Space.w > r.x) || (Space.x < r.x + r.w  && Space.x + Space.w > r.x))
+	if (Space.x < r.x + r.w && Space.x + Space.w > r.x)
 	{
 		if (Space.y < r.y + r.h && Space.y + Space.h > r.y)
 		{
@@ -165,4 +178,20 @@ bool Quadtree::CheckBoundaries(const SDL_Rect& r)
 		}
 	}
 	return false;
+}
+
+
+void Quadtree::BlitSection()
+{
+	if (Children[0] != nullptr)
+	{
+		for (int i = 0; i < 4; ++i)
+		{
+			Children[i]->BlitSection();
+		}
+	}
+	else
+	{
+		App->render->DrawQuad(Space, 255, 255, 255, 255, false);
+	}
 }

@@ -100,11 +100,14 @@ bool j1Render::Update(float dt)
 	vector<ObjectToPrint*> PossibleCollision;
 	SDL_Rect camera_aux = { -camera.x,-camera.y,camera.w,camera.h };
 
+	DrawQuad(camera_aux, 255, 255, 0, 255, false);
+
 	for (int i = 0; i < Sprites.size(); i++)
 	{
 		CullingQuadtree->insert(Sprites[i]);
 	}
-	
+
+	CullingQuadtree->BlitSection();
 	CullingQuadtree->FillCollisionVector(PossibleCollision, camera_aux);
 
 	FillQueuefromVec(PossibleCollision);
@@ -448,12 +451,14 @@ void j1Render::FillVec(uint Priority, SDL_Texture* texture, int x, int y, const 
 
 	if (section != NULL)
 	{
-		aux_rect.w = section->w;
-		aux_rect.h = section->h;
+		aux_rect.w = section->w*scale;
+		aux_rect.h = section->h*scale;
 	}
 	else
 	{
 		SDL_QueryTexture(texture, NULL, NULL, &aux_rect.w, &aux_rect.h);
+		aux_rect.w *= scale;
+		aux_rect.h *= scale;
 	}
 
 	ObjectToPrint* auxObject = new ObjectToPrint(Priority, texture, x, y, section, scale, speed, angle, pivot_x, pivot_y, aux_rect);

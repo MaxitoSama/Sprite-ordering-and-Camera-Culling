@@ -16,7 +16,7 @@ House::House(int x, int y, ENTITY_TYPES type):Entity(x, y, type)
 
 	priority = 3;
 
-	collider = App->colliders->AddCollider({(int)position.x,(int)position.y+110,(int)image_size_w,(int)image_size_h-220}, COLLIDER_WALL, (j1Module*)App->entities);
+	collider = App->colliders->AddCollider({(int)position.x,(int)position.y+110,10,10}, COLLIDER_WALL, (j1Module*)App->entities);
 
 }
 
@@ -34,13 +34,15 @@ bool House::Update(float dt)
 {
 	//TODO 1: Create a method that prints the house befor the player or after the player
 
-	if (App->entities->player->position.y < position.y + image_size_h / 2)
+
+	/*if (App->entities->player->position.y < position.y + image_size_h / 2)
 	{
 		priority = App->entities->player->priority + 1;
 	}
 	else
 	{
 		priority = App->entities->player->priority - 1;
-	}
+	}*/
+
 	return true;
 }
